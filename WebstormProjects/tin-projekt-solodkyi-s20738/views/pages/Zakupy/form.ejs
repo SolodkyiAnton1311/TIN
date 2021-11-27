@@ -1,0 +1,25 @@
+<%- include('../../fragments/header.ejs') %>
+<main>
+    <b>Dodaj Zakupy</b>
+    <form class="form">
+        <label for="nameKlient"class="symbol-required">Imie klienta*:</label>
+        <input type="text" name="nameKlient"id="nameKlient" required/>
+        <span id="errorNameKlient"></span>
+        <label for="adresSklepu"class="symbol-required">AdresSklepu*:</label>
+        <input type="text" name="adresSklepu"id="adresSklepu" required/>
+        <span id="errorAdres"></span>
+        <label for="dataOfWizit"class="symbol-required">Data wizytu*:</label>
+        <input type="date" name="dateOfWizit"id="dataOfWizit" required/>
+        <span id="errorWizit"></span>
+        <label for="dataNextWizit">Data nastepnego wizytu:</label>
+        <input type="date" name="dateNextWizit"id="dataNextWizit"/>
+        <span id="errorNextWizit"></span>
+        <label for="StraczonaSuma"class="symbol-required">Straczona suma*:</label>
+        <input type="number" name="StraczonaSuma"id="StraczonaSuma" required/>
+        <span id="straczonaSumaError"></span>
+
+
+        <input href="" type="submit" value="Dodaj" class="form-button-submit"/>
+    </form>
+</main>
+<%- include('../../fragments/footer.ejs') %>

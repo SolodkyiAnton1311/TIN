@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+<head>
+  <meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1">
+  <title>Truskawka.pl</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <script type="application/javascript" src="../Script/validationKlientForm.js"></script>
+</head>
+<body>
+<header>
+  <h1>Sieć sklepow Truskawka</h1>
+  <img src="../logo.png" alt="truskawka">
+</header>
+<nav>
+  <ul>
+    <li><a href="../Main.html">Strona Glówna</a></li>
+    <li><a href="../Sklepy/Skplepy.html">Sklep</a></li>
+    <li><a href="../Klient/Klienci.html">Klient</a></li>
+    <li><a href="../Zakupy/Zakupy.html">Zakupy</a></li>
+  </ul>
+</nav>
+<main>
+  <b>Dodaj klienta</b>
+  <form class="form" novalidate onsubmit="return validationKlientForm();">
+    <label for="firstNameKlient" class="symbol-required" >Imię*:</label>
+    <input type="text" name="fristNameKlient" id="firstNameKlient" placeholder="3-20 znaków" required/>
+    <span id="errorFirstName"></span>
+    <label for="lastName" class="symbol-required">Nazwisko*:</label>
+    <input type="text" name="lastName"id="lastName" placeholder="3-20 znaków" required/>
+    <span id="errorLastName"></span>
+    <label for="age" class="symbol-required" placeholder="od 10 do 100">Wiek*:</label>
+    <input type="number" name="age"id="age" required/>
+    <span id="errorAge"></span>
+    <label for="M" class="symbol-required">Plec*:</label>
+
+    <div>
+      <input type="radio" id="M" name="drone" value="huey"
+             checked>
+      <label for="M">M</label>
+    </div>
+    <div><input type="radio" id="Z" name="drone" value="dewey">
+      <label for="Z">Z</label>
+    </div>
+    <span id="errorSex" class="error-text"></span>
+    <input  type="submit" value="Dodaj" class="form-button-submit"/>
+  </form>
+
+</main>
+
+</body>
+</html>

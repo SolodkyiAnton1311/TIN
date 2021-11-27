@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1">
+    <title>Truskawka.pl</title>
+    <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+<header>
+    <h1>Sieć sklepow Truskawka</h1>
+    <img src="../logo.png" alt="truskawka">
+</header>
+<nav>
+    <ul>
+        <li><a href="../Main.html">Strona Glówna</a></li>
+        <li><a href="../Sklepy/Skplepy.html">Sklep</a></li>
+        <li><a href="../Klient/Klienci.html">Klient</a></li>
+        <li><a href="../Zakupy/Zakupy.html">Zakupy</a></li>
+    </ul>
+</nav>
+<main>
+    <b>Edytuj sklep</b>
+    <form class="form">
+        <label for="Adres"class="symbol-required">Adres*:</label>
+        <input type="text" name="Adres"id="Adres" required/>
+        <span id="errorAdres"></span>
+        <label for="dateOfOpen"class="symbol-required">Data Otwarcia*:</label>
+        <input type="date" name="dateOfOpen"id="dateOfOpen" required/>
+        <span id="errorDateOfOpen"></span>
+        <input type="submit" value="Dodaj" class="form-button-submit"/>
+    </form>
+
+</main>
+
+</body>
+</html>

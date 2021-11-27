@@ -1,0 +1,38 @@
+<%- include('../../fragments/header.ejs') %>
+<main>
+
+    <h2>
+        <b>Lista klientow</b>
+    </h2>
+        <table class="tabele-list">
+  <thread>
+      <tr>
+          <th>Imię</th>
+          <th>Nazwisko</th>
+          <th>Wiek</th>
+          <th>Plec</th>
+          <th>Akcje</th>
+      </tr>
+  </thread>
+            <tbody>
+            <tr>
+                <td>Anton</td>
+                <td>Solodkyi</td>
+                <td>20</td>
+                <td>M</td>
+                <td>
+                        <a href="details.ejs" class="list-actions-button-details">Szczegoly</a>
+                        <a href="Klient-edit.ejs" class="list-actions-button-edit">Edytuj</a>
+                        <a onclick="function myFunction() {
+                       alert('Rekord zostal usunienty');
+                        }
+                        myFunction()" class="list-actions-button-delete" >Usuń</a>
+
+                </td>
+            </tr></tbody>
+        </table>
+    <form class="form-buttons">
+    <p><a href="/klients/add" class="button-add">Dodac nowego klienta</a></p>
+    </form>
+</main>
+<%- include('../../fragments/footer.ejs') %>

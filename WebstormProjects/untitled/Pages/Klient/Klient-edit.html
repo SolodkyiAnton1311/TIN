@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+<head>
+    <link rel="stylesheet" href="../css/style.css"/>
+    <meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1">
+    <title>Truskawka.pl</title>
+</head>
+<body>
+<header>
+    <h1>Sieć sklepow Truskawka</h1>
+    <img src="../logo.png" alt="truskawka">
+</header>
+<nav>
+    <ul>
+        <li><a href="../Main.html">Strona Glówna</a></li>
+        <li><a href="../Sklepy/Skplepy.html">Sklep</a></li>
+        <li><a href="../Klient/Klienci.html">Klient</a></li>
+        <li><a href="../Zakupy/Zakupy.html">Zakupy</a></li>
+    </ul>
+</nav>
+<main>
+    <b>Edycja klienta</b>
+    <form class="form">
+        <label for="firstNameKlient" class="symbol-required">Imię*:</label>
+        <input type="text" name="fristNameKlient" id="firstNameKlient" required/>
+        <span id="errorFirstName" class="error-text"></span>
+        <label for="lastName" class="symbol-required">Nazwisko*:</label>
+        <input type="text" name="lastName"id="lastName" required/>
+        <span class="error-text" id="errorLastName"></span>
+        <label for="age" class="symbol-required">Wiek*:</label>
+        <input type="number" name="age"id="age" required/>
+        <span id="errorAge" class="error-text"></span>
+        <label for="M" class="symbol-required">Plec*:</label>
+
+             <div>
+            <input type="radio" id="M" name="sex" value="M"
+                   checked>
+            <label for="M">M</label>
+            </div>
+           <div>
+            <input type="radio" id="Z" name="sex" value="Z">
+            <label for="Z">Z</label>
+        </div>
+
+        <span id="errorstraczonaSumma"></span>
+        <input type="submit" value="Dodaj"class="form-button-submit"/>
+    </form>
+
+</main>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1">
+    <title>Truskawka.pl</title>
+</head>
+<body>
+<header>
+    <link rel="stylesheet" href="../css/style.css"/>
+    <h1>Sieć sklepow Truskawka</h1>
+    <img src="../logo.png" alt="truskawka">
+</header>
+<nav>
+    <ul>
+        <li><a href="../Main.html">Strona Glówna</a></li>
+        <li><a href="../Sklepy/Skplepy.html">Sklep</a></li>
+        <li><a href="../Klient/Klienci.html">Klient</a></li>
+        <li><a href="../Zakupy/Zakupy.html">Zakupy</a></li>
+    </ul>
+</nav>
+<main>
+    <b>Edytuj sklep</b>
+    <form class="form">
+        <label for="firstNameKlient" class="symbol-required">Imię Klienta*:</label>
+        <input type="text" name="fristNameKlient"id="firstNameKlient" required/>
+        <span id="errorFirstName"></span>
+        <label for="Sklep"class="symbol-required">Sklep*:</label>
+        <input type="text" name="Sklep"id="Sklep" required/>
+        <span id="errorLastName"></span>
+        <label for="DateOfWizit"class="symbol-required">Data wizytu*:</label>
+        <input type="date" name="DateOfWizit"id="DateOfWizit" required/>
+        <span id="errorDateOfWizit"></span>
+        <label for="DataOfNextWizit">Data nastepnego wizytu:</label>
+        <input type="date" name="DataOfNextWizit"id="DataOfNextWizit"/>
+        <span id="errorDateOFNextWizit"></span>
+        <label for="DataOfNextWizit"class="symbol-required">Straczona Summa*:</label>
+        <input type="number" name="straczonaSumma"id="straczonaSumma"/>
+        <span id="errorstraczonaSumma"></span>
+        <input type="submit" value="Dodaj"class="form-button-submit"/>
+    </form>
+
+</main>
+
+</body>
+</html>

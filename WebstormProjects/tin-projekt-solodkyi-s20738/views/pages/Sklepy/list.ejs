@@ -1,0 +1,32 @@
+<%- include('../../fragments/header.ejs') %>
+<main>
+
+    <h2>
+        <b>Lista Sklepow</b>
+    </h2>
+    <table class="tabele-list">
+        <thread>
+            <tr>
+                <th>Adres</th>
+                <th>Data otwarcia</th>
+                <th>Akcje</th>
+            </tr>
+        </thread>
+        <tbody>
+        <tr>
+            <td>Lopuszanska 22</td>
+            <td>12-12-2000</td>
+            <td><ul>
+                    <a href="details.ejs" class="list-actions-button-details">Szczegoly</a>
+                    <a href="Sklep-edit.ejs" class="list-actions-button-edit">Edytuj</a>
+                <a onclick="function myFunction() {
+                       alert('Rekord zostal usunienty');
+                        }
+                        myFunction()" class="list-actions-button-delete" >Usuń</a>
+
+            </ul></td>
+        </tr></tbody>
+    </table>
+
+    <p><a href="/skleps/add" class="button-add">Dodać nowego klienta</a></p>
+<%- include('../../fragments/footer.ejs') %>

@@ -1,0 +1,25 @@
+<%- include('../../fragments/header.ejs') %>
+<main>
+    <b>Edytuj sklep</b>
+    <form class="form">
+        <label for="firstNameKlient" class="symbol-required">Imię Klienta*:</label>
+        <input type="text" name="fristNameKlient"id="firstNameKlient" required/>
+        <span id="errorFirstName"></span>
+        <label for="Sklep"class="symbol-required">Sklep*:</label>
+        <input type="text" name="Sklep"id="Sklep" required/>
+        <span id="errorLastName"></span>
+        <label for="DateOfWizit"class="symbol-required">Data wizytu*:</label>
+        <input type="date" name="DateOfWizit"id="DateOfWizit" required/>
+        <span id="errorDateOfWizit"></span>
+        <label for="DataOfNextWizit">Data nastepnego wizytu:</label>
+        <input type="date" name="DataOfNextWizit"id="DataOfNextWizit"/>
+        <span id="errorDateOFNextWizit"></span>
+        <label for="DataOfNextWizit"class="symbol-required">Straczona Summa*:</label>
+        <input type="number" name="straczonaSumma"id="straczonaSumma"/>
+        <span id="errorstraczonaSumma"></span>
+        <input type="submit" value="Dodaj"class="form-button-submit"/>
+    </form>
+
+</main>
+
+<%- include('../../fragments/footer.ejs') %>
