@@ -3,5 +3,5 @@ const router = express.Router();
 const klientControler = require('../controllers/ZakupyControler');
 router.get('/',klientControler.showKlientList);
 router.get('/add',klientControler.showAddKlientForm);
-router.get('/details/:empID',klientControler.showKlientDetails);
+router.get('/details/:zakupyId',klientControler.showKlientDetails);
 module.exports =router;

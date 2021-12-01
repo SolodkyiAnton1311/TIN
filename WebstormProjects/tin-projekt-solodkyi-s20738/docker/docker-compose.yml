@@ -31,7 +31,7 @@ services:
       PMA_ARBITRARY: 1
     restart: always
     ports:
-      - 3306
+      - 8183:80
 volumes:
   mongodata:
   mysqldata:

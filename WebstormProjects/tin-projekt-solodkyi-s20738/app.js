@@ -8,6 +8,9 @@ var indexRouter = require('./routes/index');
 var klientRouter = require('./routes/klientRouter');
 var sklepRouter = require('./routes/sklepRouter');
 var zakupyRouter = require('./routes/zakupyRouter');
+const klientApiRouter = require('./routes/api/KlientApiRoute');
+const sklepApiRouter = require('./routes/api/SklepApiRoute');
+const zakupyApiRouter = require('./routes/api/ZakupyApiRepository');
 
 var app = express();
 
@@ -17,6 +20,7 @@ app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
+
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -24,6 +28,9 @@ app.use('/', indexRouter);
 app.use('/klients', klientRouter);
 app.use('/skleps', sklepRouter);
 app.use('/zakups', zakupyRouter);
+app.use('/api/klients',klientApiRouter);
+//app.use('/api/skleps',sklepApiRouter);
+//app.use('./api/zakups',zakupyApiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
