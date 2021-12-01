@@ -1,6 +1,7 @@
 const ZakupyRepository = require('../repository/mysql2/ZakupyRepository');
+
 exports.getZakupy = (reg, res, next) => {
-    ZakupyRepository.getKlients()
+    ZakupyRepository.getZakupy()
         .then(emps => {
             res.status(200).json(emps);
         })
