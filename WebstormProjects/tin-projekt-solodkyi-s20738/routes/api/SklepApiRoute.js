@@ -6,4 +6,4 @@ router.get('/:sklepId',SklepApiController.getSklepById);
 router.post('/',SklepApiController.createSklep);
 router.put('/:sklepId',SklepApiController.updateSklep);
 router.delete('/:sklepId',SklepApiController.deleteSklep);
-
+module.exports = router;

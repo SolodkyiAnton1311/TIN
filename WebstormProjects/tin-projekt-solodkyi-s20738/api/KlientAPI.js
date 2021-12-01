@@ -9,7 +9,7 @@ exports.getKlients = (reg, res, next) => {
         });
 };
 exports.getKlientsById = (req, res, next) => {
-    const empId = req.params.empId;
+    const empId = req.params.klientId;
     KlientRepository.getKlientsById(empId)
         .then(emp => {
             if (!emp) {
@@ -34,7 +34,7 @@ exports.createKlient = (req, res, next) => {
         });
 };
 exports.updateKlient = (req, res, next) => {
-    const empId = req.params.empId;
+    const empId = req.params.klientId;
     KlientRepository.updateKlient(empId, req.body)
         .then(result => {
             res.status(200).json({
@@ -50,7 +50,7 @@ exports.updateKlient = (req, res, next) => {
         });
 };
 exports.deleteKlient = (req, res, next) => {
-    const empId = req.params.empId;
+    const empId = req.params.klientId;
     KlientRepository.deleteKlient(empId)
         .then(result => {
             res.status(200).json({

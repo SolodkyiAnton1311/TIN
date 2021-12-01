@@ -6,4 +6,5 @@ router.get('/:klientId',klientApiController.getKlientsById);
 router.post('/',klientApiController.createKlient);
 router.put('/:klientId',klientApiController.updateKlient);
 router.delete('/:klientId',klientApiController.deleteKlient);
+module.exports = router;
 

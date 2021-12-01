@@ -9,7 +9,7 @@ exports.getZakupy = (reg, res, next) => {
         });
 };
 exports.getZakupyById = (req, res, next) => {
-    const empId = req.params.empId;
+    const empId = req.params.zakupyId;
     ZakupyRepository.getZakupyById(empId)
         .then(emp => {
             if (!emp) {
@@ -34,7 +34,7 @@ exports.createZakupy = (req, res, next) => {
         });
 };
 exports.updateZakupy = (req, res, next) => {
-    const empId = req.params.empId;
+    const empId = req.params.zakupyId;
     ZakupyRepository.updateZakupy(empId, req.body)
         .then(result => {
             res.status(200).json({
@@ -50,7 +50,7 @@ exports.updateZakupy = (req, res, next) => {
         });
 };
 exports.deleteZakupy = (req, res, next) => {
-    const empId = req.params.empId;
+    const empId = req.params.zakupyId;
     ZakupyRepository.deleteZakupy(empId)
         .then(result => {
             res.status(200).json({

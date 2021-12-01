@@ -4,13 +4,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+const klientApiRouter = require('./routes/api/KlientApiRoute');
+const sklepApiRouter = require('./routes/api/SklepApiRoute');
+const zakupyApiRouter = require('./routes/api/ZakupyApiRepository');
 var indexRouter = require('./routes/index');
 var klientRouter = require('./routes/klientRouter');
 var sklepRouter = require('./routes/sklepRouter');
 var zakupyRouter = require('./routes/zakupyRouter');
-const klientApiRouter = require('./routes/api/KlientApiRoute');
-const sklepApiRouter = require('./routes/api/SklepApiRoute');
-const zakupyApiRouter = require('./routes/api/ZakupyApiRepository');
+
 
 var app = express();
 
@@ -29,8 +30,8 @@ app.use('/klients', klientRouter);
 app.use('/skleps', sklepRouter);
 app.use('/zakups', zakupyRouter);
 app.use('/api/klients',klientApiRouter);
-//app.use('/api/skleps',sklepApiRouter);
-//app.use('./api/zakups',zakupyApiRouter);
+app.use('/api/skleps',sklepApiRouter);
+app.use('./api/zakups',zakupyApiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

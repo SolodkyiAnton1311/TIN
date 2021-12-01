@@ -1,6 +1,7 @@
 const SklepRepository = require('../repository/mysql2/SklepRepository');
+const KlientRepository = require("../repository/mysql2/KlientRepository");
 exports.getSklep = (reg, res, next) => {
-    SklepRepository.getKlients()
+    SklepRepository.getSklep()
         .then(emps => {
             res.status(200).json(emps);
         })
@@ -9,7 +10,7 @@ exports.getSklep = (reg, res, next) => {
         });
 };
 exports.getSklepById = (req, res, next) => {
-    const empId = req.params.empId;
+    const empId = req.params.sklepId;
     SklepRepository.getSklepById(empId)
         .then(emp => {
             if (!emp) {
@@ -34,7 +35,7 @@ exports.createSklep = (req, res, next) => {
         });
 };
 exports.updateSklep = (req, res, next) => {
-    const empId = req.params.empId;
+    const empId = req.params.sklepId;
     SklepRepository.updateSklep(empId, req.body)
         .then(result => {
             res.status(200).json({
@@ -50,7 +51,7 @@ exports.updateSklep = (req, res, next) => {
         });
 };
 exports.deleteSklep = (req, res, next) => {
-    const empId = req.params.empId;
+    const empId = req.params.sklepId;
     SklepRepository.deleteSklep(empId)
         .then(result => {
             res.status(200).json({
