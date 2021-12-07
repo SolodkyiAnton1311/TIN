@@ -1,4 +1,5 @@
 const db = require('../../config/mysql2/db');
+const klientSchema = require("../../model/joi/Sklep");
 
 exports.getSklep = () =>{
     return db.promise().query('SELECT * FROM Sklep').then((results,fields) =>
@@ -47,17 +48,22 @@ exports.getSklepById = (sklepId) =>{
         });};
 
 exports.createSklep = (newSklepData) => {
-    const id = newSklepData.id;
-    const adresa = newSklepData.Adresa;
-    const dataOtwarcia = newSklepData.Data_otwarcia;
-    const sql = "INSERT INTO Sklep ( id_sklep,Adresa, Data_otwarcia) VALUES (?,?,?);"
-    return  db.promise().execute(sql,[id,adresa,dataOtwarcia]);
+    const vRes = klientSchema.validate(newSklepData,{abortEarly:false});
+    if (vRes.error)
+    {
+        return Promise.reject(vRes.error);
+    }
+    const sql = "INSERT INTO Sklep ( Adresa, Data_otwarcia) VALUES (?,?);"
+    return  db.promise().execute(sql,[newSklepData.Adresa,newSklepData.Data_otwarcia]);
 };
 exports.updateSklep = (sklepId,sklepData)=> {
-    const adresa = sklepData.Adresa;
-    const Data_otwarcia = sklepData.Data_otwarcia;
+    const vRes = klientSchema.validate(sklepData,{abortEarly:false});
+    if (vRes.error)
+    {
+        return Promise.reject(vRes.error);
+    }
     const sql = "UPDATE Sklep SET Adresa = ?, Data_otwarcia = ? WHERE id_sklep = ?;"
-    return   db.promise().execute(sql,[adresa,Data_otwarcia,sklepId]);
+    return   db.promise().execute(sql,[sklepData.Adresa,sklepData.Data_otwarcia,sklepId]);
 };
 exports.deleteSklep = (sklepId) => {
     const sql = "DELETE FROM Sklep WHERE id_sklep = ?";

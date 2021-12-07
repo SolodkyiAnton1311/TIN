@@ -15,21 +15,25 @@
       </tr>
   </thread>
             <tbody>
+            <% for (let klient of klienci) { %>
             <tr>
-                <td>Anton</td>
-                <td>Solodkyi</td>
-                <td>20</td>
-                <td>M</td>
+                <td><%= klient.Imie%></td>
+                <td><%= klient.Nazwisko%></td>
+                <td><%= klient.Wiek%></td>
+                <td><%= klient.Plec%></td>
                 <td>
-                        <a href="details.ejs" class="list-actions-button-details">Szczegoly</a>
-                        <a href="Klient-edit.ejs" class="list-actions-button-edit">Edytuj</a>
-                        <a onclick="function myFunction() {
+                    <ul>
+                        <a href="/klients/details/<%=klient.id_klient%>"  class="list-actions-button-details">Szczegoly</a>
+                        <a href="/klients/edit/<%=klient.id_klient%>"  class="list-actions-button-edit">Edytuj</a>
+                        <a href="/klients/delete/<%=klient.id_klient%>" onclick="function myFunction() {
                        alert('Rekord zostal usunienty');
                         }
                         myFunction()" class="list-actions-button-delete" >Usuń</a>
 
-                </td>
-            </tr></tbody>
+                    </ul> </td>
+            </tr>
+            <% } %>
+            </tbody>
         </table>
     <form class="form-buttons">
     <p><a href="/klients/add" class="button-add">Dodac nowego klienta</a></p>

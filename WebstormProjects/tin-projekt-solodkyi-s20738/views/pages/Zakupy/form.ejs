@@ -1,25 +1,79 @@
 <%- include('../../fragments/header.ejs') %>
 <main>
-    <b>Dodaj Zakupy</b>
-    <form class="form">
-        <label for="nameKlient"class="symbol-required">Imie klienta*:</label>
-        <input type="text" name="nameKlient"id="nameKlient" required/>
-        <span id="errorNameKlient"></span>
-        <label for="adresSklepu"class="symbol-required">AdresSklepu*:</label>
-        <input type="text" name="adresSklepu"id="adresSklepu" required/>
-        <span id="errorAdres"></span>
-        <label for="dataOfWizit"class="symbol-required">Data wizytu*:</label>
-        <input type="date" name="dateOfWizit"id="dataOfWizit" required/>
-        <span id="errorWizit"></span>
-        <label for="dataNextWizit">Data nastepnego wizytu:</label>
-        <input type="date" name="dateNextWizit"id="dataNextWizit"/>
-        <span id="errorNextWizit"></span>
-        <label for="StraczonaSuma"class="symbol-required">Straczona suma*:</label>
-        <input type="number" name="StraczonaSuma"id="StraczonaSuma" required/>
-        <span id="straczonaSumaError"></span>
+    <h2><%= pageTitle%></h2>
+    <form class="form" method="post" action="<%=formAction%>" novalidate>
+
+        <label for="id_sklep" class="symbol-required">Sklep*:</label>
+        <select name="id_sklep" class="<%validationErrors.find(e => e.path.includes('id_sklep'))?'error-input':''%>" id="id_sklep" required<%=(formMode === 'showDetails')?'disabled':''%>>
+            <option value="" selected>Wybiez sklep</option>
+            <% for(let i=0; i<allSklep.length;i++){ let sklep = allSklep[i];let klientos = 0 %>
+            <option value="<%=sklep.id_sklep%>" label="<%= sklep.Adresa%>"
+                    <%=(zakups.id && zakups.klients[klientos++].id_sklep === sklep.id_sklep)?'selected':'' %>></option>
+            <%}%>
+
+        </select>
+        <span id="errorSklep"><% if (validationErrors.find(e=> e.path.includes('id_sklep'))){%>
+                <%= validationErrors.find(e=>e.path.includes('id_sklep').message)%>
+            <%}%></span>
+        <label for="id_klient" class="symbol-required">Klient*:</label>
+        <select name="id_klient" class="<%validationErrors.find(e => e.path.includes('id_klient'))?'error-input':''%>" id="id_klient" required<%=(formMode === 'showDetails')?'disabled':''%>>
+            <option value="" selected>Wybiez klienta</option>
+            <% for(let i=0; i<allKlient.length;i++){ let klient = allKlient[i];let klientos = 0 %>
+            <option value="<%= klient.id_klient%>" label="<%= klient.Imie + ' ' + klient.Nazwisko%>"
+                    <%=(zakups.id && zakups.klients[klientos++].id === klient.id_klient) ? 'selected':'' %>></option>
+            <%}%>
+            <span id="errorKlient">id="errorSklep"><% if (validationErrors.find(e=> e.path.includes('id_klient'))){%>
+                    <%= validationErrors.find(e=>e.path.includes('id_klient').message)%>
+                <%}%></span>
+
+        </select>
+        <label for="DataVizytu" class="symbol-required"></label>
+        <label for="DataVizytu" class="symbol-required"> Data wizytu</label>
+        <%if (formMode === 'createNew'){%>
+        <input type="date" name="DataVizytu" id="DataVizytu"  required class="<%validationErrors.find(e => e.path.includes('DataVizytu'))?'error-input':''%>"  value="<%=zakups.DataVizytu%>"
+                <%=(formMode === 'showDetails')?'disabled':''%>/>
+        <span id="errorWizit"><% if (validationErrors.find(e=> e.path.includes('data_ostatniego_wizutu_klienta'))){%>
+                <%= validationErrors.find(e=>e.path.includes('data_ostatniego_wizutu_klienta').message)%>
+            <%}%> </span>
+        <label for="DataNastepnego">Data nastepnego wizytu:</label>
+        <input type="date" name="DataNastepnego"id="DataNastepnego" class="<%validationErrors.find(e => e.path.includes('data_nastepnego_wizytu'))?'error-input':''%>" value="<%=zakups.DataNastepnego%>"
+                <%=(formMode === 'showDetails')?'disabled':''%>/>
+        <span id="errorNextWizit"><% if (validationErrors.find(e=> e.path.includes('data_nastepnego_wizytu'))){%>
+                <%= validationErrors.find(e=>e.path.includes('data_nastepnego_wizytu').message)%>
+            <%}%></span>
+        <%}else {%>
+        <input type="date" name="DataVizytu" id="DataVizytu" class="<%validationErrors.find(e => e.path.includes('DataVizytu'))?'error-input':''%>" required value="<%=zakups.DataVizytu.toISOString().split('T')[0]%>"
+                <%=(formMode === 'showDetails')?'disabled':''%>/>
+        <span id="errorWizit"><% if (validationErrors.find(e=> e.path.includes('data_ostatniego_wizutu_klienta'))){%>
+                <%= validationErrors.find(e=>e.path.includes('data_ostatniego_wizutu_klienta').message)%>
+            <%}%></span>
+        <label for="DataNastepnego">Data nastepnego wizytu:</label>
+        <input type="date" name="DataNastepnego" id="DataNastepnego" class="<%validationErrors.find(e => e.path.includes('DataNastepnego'))?'error-input':''%>" value="<%=zakups.DataNastepnego.toISOString().split('T')[0]%>"
+                <%=(formMode === 'showDetails')?'disabled':''%>/>
+        <span id="errorNextWizit"><% if (validationErrors.find(e=> e.path.includes('DataNastepnego'))){%>
+                <%= validationErrors.find(e=>e.path.includes('data_nastepnego_wizytu').message)%>
+            <%}%></span>
+        <%}%>
+        <label for="straczona_summa"class="symbol-required">Straczona suma*:</label>
+        <input type="number" name="straczona_summa" id="straczona_summa" class="<%validationErrors.find(e => e.path.includes('straczona_summa'))?'error-input':''%>" required value="<%=zakups.straczona_summa%>"
+                <%=(formMode === 'showDetails')?'disabled':''%>/>
+        <span id="straczonaSumaError"><% if (validationErrors.find(e=> e.path.includes('Data_otwarcia'))){%>
+                <%= validationErrors.find(e=>e.path.includes('straczona_summa').message)%>
+            <%}%></span>
 
 
-        <input href="" type="submit" value="Dodaj" class="form-button-submit"/>
+
+        <div class="selection-buttons">
+            <%if (formMode !== 'showDetails'){%>
+            <input class="form-button-submit" type="submit" value="<%=btnLabel%>"/>
+            <a class="form-button-cancel" href="/zakups">Anuluj</a>
+            <%} else { %>
+            <a href="/zakups/edit/<%=zakups.id%>" class="form-button-submit">Edytuj Zakupy</a>
+            <a class="form-button-cancel" href="/zakups">Anuluj</a>
+            <% } %>
+        </div>
+
+
     </form>
 </main>
 <%- include('../../fragments/footer.ejs') %>

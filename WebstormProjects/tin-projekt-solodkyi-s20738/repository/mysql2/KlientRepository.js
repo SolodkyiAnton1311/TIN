@@ -1,4 +1,5 @@
 const db = require('../../config/mysql2/db');
+const klientSchema = require('../../model/joi/Klient');
 
 exports.getKlients = () =>{ return db.promise().query('SELECT * FROM Klient').then((results,fields) =>
 {
@@ -22,7 +23,9 @@ exports.getKlientsById = (klientId) =>{
             const emp = {
                 id: klientId,
                 name: firstRow.imie,
-                capacity: firstRow.nazwisko,
+                lastName: firstRow.nazwisko,
+                wiek: firstRow.wiek,
+                plec: firstRow.plec,
                 klients  : []
             };
             for (let i = 0; i < results[0].length; i++) {
@@ -49,22 +52,28 @@ exports.getKlientsById = (klientId) =>{
             throw err;
         });};
 exports.createKlient = (newKlientData) => {
-    const id = newKlientData.id;
-    const firstName = newKlientData.imie;
-    const lastName = newKlientData.Nazwisko;
-    const wiek = newKlientData.Wiek;
-    const plec = newKlientData.Plec;
-    const sql = "INSERT INTO Klient ( id_klient,Imie, Nazwisko, Wiek, Plec) VALUES (?,?,?,?,?);"
-    return  db.promise().execute(sql,[id,firstName,lastName,wiek,plec]);
+    const vRes = klientSchema.validate(newKlientData,{abortEarly:false});
+    if (vRes.error)
+    {
+        return Promise.reject(vRes.error);
+    }
+
+    const sql = "INSERT INTO Klient ( Imie, Nazwisko, Wiek, Plec) VALUES (?,?,?,?);"
+    return  db.promise().execute(sql,[newKlientData.Imie,newKlientData.Nazwisko,newKlientData.Wiek,newKlientData.Plec]);
+
 };
 
-    exports.updateKlient = (klientId,klientDat)=> {
-        const firstName = klientDat.imie;
-        const lastName = klientDat.Nazwisko;
-        const wiek = klientDat.Wiek;
-        const plec = klientDat.Plec;
+    exports.updateKlient = (klientId,newKlientData)=> {
+        console.log(newKlientData);
+        console.log(klientId);
+        const vRes = klientSchema.validate(newKlientData,{abortEarly:false});
+        if (vRes.error)
+        {
+            return Promise.reject(vRes.error);
+        }
     const sql = "UPDATE Klient SET Imie = ?, Nazwisko = ?, Wiek = ?, Plec = ? WHERE id_klient = ?;"
-    return   db.promise().execute(sql,[firstName,lastName,wiek,plec,klientId]);
+    return   db.promise().execute(sql,[newKlientData.Imie,newKlientData.Nazwisko,newKlientData.Wiek,newKlientData.Plec,klientId]);
+
 };
 exports.deleteKlient = (klientId) => {
     const sql = "DELETE FROM Klient WHERE id_klient = ?";

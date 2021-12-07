@@ -7,6 +7,7 @@
         <thread>
             <tr>
                 <th>Imie klienta</th>
+                <th>Nazwisko klienta</th>
                 <th>Addresa</th>
                 <th>Straczona suma</th>
                 <th>Data ostatniego wizytu</th>
@@ -15,21 +16,27 @@
             </tr>
         </thread>
         <tbody>
+        <% for (let zakup of zakups) { %>
         <tr>
-            <td>Anton Solodkyi</td>
-            <td>Lopuszanska 22</td>
-            <td>200 zl</td>
-            <td>12-12-2021</td>
-            <td>12-12-2022</td>
-            <td><ul>
-                    <a href="details.ejs" class="list-actions-button-details">Szczegoly</a>
-                    <a href="/zakups/edit" class="list-actions-button-edit">Edytuj</a>
-                <a onclick="function myFunction() {
+            <td><%= zakup.imie%></td>
+            <td><%= zakup.nazwisko%></td>
+            <td><%= zakup.Adresa%></td>
+            <td><%= zakup.straczona_summa%></td>
+            <td><%= zakup.data_ostatniego_wizutu_klienta.toISOString().split('T')[0]%></td>
+            <td><%= zakup.data_nastepnego_wizytu.toISOString().split('T')[0]%></td>
+            <td>
+                <ul>
+                    <a href="/zakups/details/<%=zakup.id_sklep_klient%>" class="list-actions-button-details">Szczegoly</a>
+                    <a href="/zakups/edit/<%=zakup.id_sklep_klient%>" class="list-actions-button-edit"> Edytuj</a>
+                    <a href="/zakups/delete/<%=zakup.id_sklep_klient%>" onclick="function myFunction() {
                        alert('Rekord zostal usunienty');
                         }
                         myFunction()" class="list-actions-button-delete" >Usuń</a>
-            </ul></td>
-        </tr></tbody>
+
+                </ul></td>
+        </tr>
+        <% } %>
+        </tbody>
     </table>
 
     <p><a href="/zakups/add" class="button-add">Dodac nowe zakupy</a></p>

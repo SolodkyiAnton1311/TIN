@@ -1,88 +1,69 @@
-let valid = true;
-function check(input,error) {
-    if (!checkRequiered(input.value))
-    {
-        input.classList.add("error-input");
-        error.innerText = "Pole jest wymagane";
-       valid = false;
+function resetErrors(inputs, errorTexts, errorInfo) {
+    for(let i=0; i<inputs.length; i++) {
+        inputs[i].classList.remove("error_input");
     }
-    else if (!checkTextLengthRange(input.value,5,20))
-    {
+    for(let i=0; i<errorTexts.length; i++) {
+        errorTexts[i].innerText = "";
+    }
+    errorInfo.innerText = "";
+}
 
-        input.classList.add("error-input")
-        error.innerText = "Powinno zawierać od 5 do 20 znakow";
+function validateForm() {
+    const imieInput = document.getElementById('Imie');
+    const lastNameInput = document.getElementById('Nazwisko');
+    const ageInput = document.getElementById('Wiek');
+
+
+    const errorFirstName = document.getElementById('errorImie');
+    const errorLastName = document.getElementById('errorLastName');
+    const ageError = document.getElementById('errorSex');
+
+    const errorsSummary = document.getElementById('errorsSummary');
+
+    resetErrors([imieInput, lastNameInput, ageInput], [errorFirstName, errorLastName, ageError], errorsSummary);
+
+    let valid = true;
+
+    if (!checkRequired(imieInput.value)) {
+        console.log("first error")
         valid = false;
-    }
-}
-
-
-function resetErrors(inputs,errorText,errorInfo) {
-    for (let i = 0; i < inputs.length; i++)
-    {
-        inputs[i].classList.remove("error-input");
-    }
-    for (let i =0;i<errorText.length;i++)
-    {
-        errorText[i].innerText = "";
-    }
-    errorInfo.innerText="";
-}
-
-
-
-
-
-
-
-function validationKlientForm()
-{
-
-const firstNameInput = document.getElementById('firstName');
-const lastNameInput = document.getElementById('lastName');
-const ageInput = document.getElementById('age');
-const sexInput = document.getElementById('sex');
-const  errorSummary = document.getElementById('errorSummury');
-    const firsError = document.getElementById('errorFirstName');
-    const lastError = document.getElementById('errorLastName');
-    const ageError = document.getElementById('errorAge');
-    const sexError = document.getElementById('errorSex');
-    check(firstNameInput,firsError);
-    check(lastNameInput,lastError);
-    check(ageInput,ageError);
-    check(sexInput,sexError);
-    if (!valid)
-    {
-       alert("Formulaz zawiera bledy")
-    }
-    resetErrors([firstNameInput,lastNameInput,ageInput,sexInput],[firsError,lastError,ageError,sexError],errorSummary)
-
-
-}
-function checkRequiered(value) {
-    if (!value) {
-        return false
-    }
-    else
-    {   value= value.toString().trim();
-        return value !== "";
+        imieInput.classList.add("error-input");
+        errorFirstName.innerText = "Pole jest wymagane";
+    } else if (!checkTextLengthRange(imieInput.value, 2, 20)) {
+        console.log("first error")
+        valid = false;
+        imieInput.classList.add("error-input");
+        errorFirstName.innerText = "Pole powinno zawierać od 2 do 20 znaków";
     }
 
-
-}
-
-function checkTextLengthRange (value, min, max) {
-    if (!value) {
-        return false;
-    }
-    value = value.toString().trim();
-    const length = value.length;
-    if (max && length > max) {
-        return false;
-    }
-    else
-    {
-        return !(min && length < min);
+    if (!checkRequired(lastNameInput.value)) {
+        console.log("last error")
+        valid = false;
+        lastNameInput.classList.add("error-input");
+        errorLastName.innerText = "Pole jest wymagane";
+    } else if (!checkTextLengthRange(lastNameInput.value, 2, 20)) {
+        console.log("last error")
+        valid = false;
+        lastNameInput.classList.add("error-input");
+        errorLastName.innerText = "Pole powinno zawierać od 2 do 20 znaków";
     }
 
+    if (!checkRequired(ageInput.value)) {
+        valid = false;
+        console.log("age error")
+        ageInput.classList.add("error-input");
+        ageError.innerText = "Pole jest wymagane";
+    } else if (!checkTextLengthRange(ageInput.value, 5, 120)) {
+        console.log("age error")
+        valid = false;
+        ageInput.classList.add("error-input");
+        ageError.innerText = "Pole powinno zawierać od 5 do 120 lat";
+    }
 
+    if (!valid) {
+        console.log("error")
+        errorsSummary.innerText = "Formularz zawiera błędy";
+    }
+
+    return valid;
 }

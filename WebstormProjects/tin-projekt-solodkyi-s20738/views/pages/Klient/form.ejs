@@ -1,29 +1,49 @@
-<%- include('../../fragments/header.ejs') %>
+<%- include('../../../views/fragments/header.ejs') %>
 <main>
-  <b>Dodaj klienta</b>
-  <form class="form" novalidate onsubmit="return validationKlientForm();">
-    <label for="firstNameKlient" class="symbol-required" >Imię*:</label>
-    <input type="text" name="fristNameKlient" id="firstNameKlient" placeholder="3-20 znaków" required/>
-    <span id="errorFirstName"></span>
-    <label for="lastName" class="symbol-required">Nazwisko*:</label>
-    <input type="text" name="lastName"id="lastName" placeholder="3-20 znaków" required/>
-    <span id="errorLastName"></span>
+  <h2><%= pageTitle%></h2>
+  <form class="form" method="post" action="<%=formAction%> " novalidate>
+    <input type="hidden" name="klientId" id="klientId" value="<%=klient.id%>">
+    <label for="Imie" class="symbol-required" > Imie*:</label>
+    <input class="<%validationErrors.find(e => e.path.includes('Imie'))?'error-input':''%>>" type="text" name="Imie" id="Imie" placeholder="3-20 znakow" value="<%=klient.name%>"
+            <%=(formMode === 'showDetails')?'disabled':''%>/>
+
+    <span id="errorImie" class="error-text"><% if (validationErrors.find(e=> e.path.includes('Imie'))){%>
+    <%= validationErrors.find(e=>e.path.includes('Imie').message)%>
+      <%}%>
+    </span>
+    <label for="Nazwisko" class="symbol-required">Nazwisko*:</label>
+    <input type="text" name="Nazwisko" id="Nazwisko" placeholder="3-20 znaków" value="<%=klient.lastName%>" required
+            <%=(formMode === 'showDetails')?'disabled':''%>/>
+
+    <span id="errorNazwisko" class="error-text"><% if (validationErrors.find(e=> e.path.includes('Nazwisko'))){%>
+        <%= validationErrors.find(e=>e.path.includes('Nazwisko').message)%>
+      <%}%>
+    </span>
     <label for="age" class="symbol-required" placeholder="od 10 do 100">Wiek*:</label>
-    <input type="number" name="age"id="age" required/>
-    <span id="errorAge"></span>
-    <label for="M" class="symbol-required">Plec*:</label>
+    <input type="number" name="Wiek" id="Wiek" value="<%=klient.wiek%>" required
+            <%=(formMode === 'showDetails')?'disabled':''%>/>
 
-    <div>
-      <input type="radio" id="M" name="drone" value="huey"
-             checked>
-      <label for="M">M</label>
+    <span id="errorWiek" class="error-text"><% if (validationErrors.find(e=> e.path.includes('Wiek'))){%>
+        <%= validationErrors.find(e=>e.path.includes('Wiek').message)%>
+      <%}%>
+    </span>
+    <label for="sex" class="symbol-required">Plec*:</label>
+    <input type="text" name="Plec" id="Plec" value="<%=klient.plec%>" required
+            <%=(formMode === 'showDetails')?'disabled':''%>/>
+    <span id="errorWiek" class="error-text"><% if (validationErrors.find(e=> e.path.includes('Plec'))){%>
+        <%= validationErrors.find(e=>e.path.includes('Plec').message)%>
+      <%}%>
+    </span>
+    <div class="selection-buttons">
+    <%if (formMode !== 'showDetails'){%>
+
+      <input class="form-button-submit" type="submit" value="<%=btnLabel%>"/>
+      <a class="form-button-cancel" href="/klients">Anuluj</a>
+      <%} else { %>
+      <a href="/klients/edit/<%=klient.id%>" class="form-button-submit">Edytuj Sklep</a>
+      <a class="form-button-cancel" href="/klients">Anuluj</a>
+      <%} %>
     </div>
-    <div><input type="radio" id="Z" name="drone" value="dewey">
-      <label for="Z">Z</label>
-    </div>
-    <span id="errorSex" class="error-text"></span>
-    <input  type="submit" value="Dodaj" class="form-button-submit"/>
   </form>
-
 </main>
-<%- include('../../fragments/footer.ejs') %>
+<%- include('../../../views/fragments/footer.ejs') %>

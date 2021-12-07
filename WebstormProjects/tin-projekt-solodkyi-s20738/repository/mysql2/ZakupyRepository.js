@@ -1,4 +1,5 @@
 const db = require('../../config/mysql2/db');
+const klientSchema = require("../../model/joi/Zakupy");
 exports.getZakupy = () =>{
     const query ="SELECT empl.id_sklep_klient AS id_sklep_klient , empl.data_ostatniego_wizutu_klienta,empl.straczona_summa,empl.data_nastepnego_wizytu, dept.id_sklep as id_sklep ,  dept.Adresa,dept.Data_otwarcia, e.id_klient as id_klient, e.imie,e.nazwisko,e.wiek,e.plec     FROM sklep_klient empl     LEFT JOIN Klient e on empl.id_klient = e.id_klient     LEFT JOIN Sklep dept on empl.id_sklep = dept.id_sklep";
         return db.promise().query(query)
@@ -13,7 +14,7 @@ exports.getZakupy = () =>{
 
 };
 exports.getZakupyById = (zakupyId) =>{
-    const query ="SELECT empl.id_sklep_klient AS id_sklep_klient , empl.data_ostatniego_wizutu_klienta,empl.straczona_summa,empl.data_nastepnego_wizytu, dept.id_sklep as id_sklep ,  dept.Adresa,dept.Data_otwarcia, e.id_klient as id_klient, e.imie,e.nazwisko,e.wiek,e.plec     FROM sklep_klient empl     LEFT JOIN Klient e on empl.id_klient = e.id_klient     LEFT JOIN Sklep dept on empl.id_sklep = dept.id_sklep   WHERE id_sklep_klient = ?";
+    const query ="SELECT empl.id_sklep_klient AS id_sklep_klient , empl.data_ostatniego_wizutu_klienta,empl.straczona_summa,empl.data_nastepnego_wizytu, dept.id_sklep as id_sklep ,  dept.Adresa,dept.Data_otwarcia, e.id_klient as id_klient, e.imie,e.nazwisko,e.wiek,e.plec     FROM sklep_klient empl     LEFT JOIN Klient e on empl.id_klient = e.id_klient     LEFT JOIN Sklep dept on empl.id_sklep = dept.id_sklep   WHERE empl.id_sklep_klient = ?";
 
     return db.promise().query(query, [zakupyId])
         .then((results, fields) => {
@@ -22,23 +23,29 @@ exports.getZakupyById = (zakupyId) =>{
                 return {};
             }
             const emp = {
-                id: id_sklep_klient,
+                id: zakupyId,
                 DataVizytu: firstRow.data_ostatniego_wizutu_klienta,
                 straczona_summa: firstRow.straczona_summa,
                 DataNastepnego: firstRow.data_nastepnego_wizytu,
                 id_sklep: firstRow.id_sklep,
                 id_klient: firstRow.id_klient,
-                skleps  : []
+                imie: firstRow.imie,
+                nazwisko: firstRow.nazwisko,
+                adres: firstRow.Adresa,
+                klients  : []
             };
             for (let i = 0; i < results[0].length; i++) {
                 const row = results[0][i];
                 if (row.id_klient) {
                     const zakpy = {
-                        id: row.id_sklep_klient,
-                        straczona_summa:row.straczona_summa,
+                        id: row.id_klient,
+                        Imie:row.imie,
+                        Nazwisko:row.nazwisko,
+                        id_sklep:row.id_sklep,
+                        adres: row.adres
 
                     };
-                    emp.skleps.push(zakpy);
+                    emp.klients.push(zakpy);
                 }
             }
 
@@ -50,24 +57,26 @@ exports.getZakupyById = (zakupyId) =>{
         });
 };
 exports.createZakupy = (newZakupyData) => {
-    const id = newZakupyData.id;
-    const id_sklep = newZakupyData.id_sklep;
-    const id_klient = newZakupyData.id_klient;
+    const vRes = klientSchema.validate(newZakupyData,{abortEarly:false});
+    if (vRes.error)
+    {
+        return Promise.reject(vRes.error);
+    }
     const DataVizytu = newZakupyData.DataVizytu;
     const DataNastepnego = newZakupyData.DataNastepnego;
     const straczona_summa = newZakupyData.straczona_summa;
-    const sql = "INSERT INTO sklep_klient ( id_sklep_klient,id_sklep, id_klient,data_ostatniego_wizutu_klienta,data_nastepnego_wizytu,straczona_summa) VALUES (?,?,?,?,?,?);"
-    return  db.promise().execute(sql,[id,id_sklep,id_klient,DataVizytu,DataNastepnego,straczona_summa]);
+    const sql = "INSERT INTO sklep_klient ( id_sklep, id_klient,data_ostatniego_wizutu_klienta,data_nastepnego_wizytu,straczona_summa) VALUES (?,?,?,?,?);"
+    return  db.promise().execute(sql,[newZakupyData.id_sklep,newZakupyData.id_klient,DataVizytu,DataNastepnego,straczona_summa]);
 };
 
 exports.updateZakupy = (zakupyId,zakupyData)=> {
-    const id_sklep = zakupyData.id_sklep;
-    const id_klient = zakupyData.id_klient;
-    const DataVizytu = zakupyData.DataVizytu;
-    const DataNastepnego = zakupyData.DataNastepnego;
-    const straczona_summa = zakupyData.straczona_summa;
-    const sql = "UPDATE sklep_klient SET id_sklep = ?, id_klient = ?,data_ostatniego_wizutu_klienta = ?,data_nastepnego_wizytu = ?,straczona_summa = ? WHERE id_sklep = ?;"
-    return   db.promise().execute(sql,[id_sklep,id_klient,DataVizytu,DataNastepnego,straczona_summa,zakupyId]);
+    const vRes = klientSchema.validate(zakupyData,{abortEarly:false});
+    if (vRes.error)
+    {
+        return Promise.reject(vRes.error);
+    }
+    const sql = "UPDATE sklep_klient SET  id_sklep = ?,id_klient = ?,data_ostatniego_wizutu_klienta = ?,data_nastepnego_wizytu = ?,straczona_summa = ? WHERE id_sklep_klient = ?;"
+    return   db.promise().execute(sql,[zakupyData.id_sklep,zakupyData.id_klient,zakupyData.DataVizytu,zakupyData.DataNastepnego,zakupyData.straczona_summa,zakupyId]);
 };
 exports.deleteZakupy = (zakupyId) => {
     const sql = "DELETE FROM sklep_klient WHERE id_sklep_klient = ?";
