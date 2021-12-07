@@ -9,7 +9,7 @@
         <span id="errorAdres"><% if (validationErrors.find(e=> e.path.includes('Adresa'))){%>
                 <%= validationErrors.find(e=>e.path.includes('Adresa').message)%>
             <%}%></span>
-        <%if (formMode == 'createNew'){%>
+        <%if (formMode === 'createNew'){%>
         <label for="dateOfOpen" class="symbol-required">Data Otwarcia*:</label>
         <input type="date" name="Data_otwarcia" id="Data_otwarcia" class="<%validationErrors.find(e => e.path.includes('Data_otwarcia'))?'error-input':''%>" required value="<%=sklep.date%>"
                 <%=(formMode === 'showDetails')?'disabled':''%>/>

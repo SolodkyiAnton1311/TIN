@@ -2,7 +2,7 @@
 <main>
     <h2><%= pageTitle%></h2>
     <form class="form" method="post" action="<%=formAction%>" novalidate>
-
+        <input type="hidden" name="zakupyId" id="zakupyId" value="<%=zakups.id%>">
         <label for="id_sklep" class="symbol-required">Sklep*:</label>
         <select name="id_sklep" class="<%validationErrors.find(e => e.path.includes('id_sklep'))?'error-input':''%>" id="id_sklep" required<%=(formMode === 'showDetails')?'disabled':''%>>
             <option value="" selected>Wybiez sklep</option>

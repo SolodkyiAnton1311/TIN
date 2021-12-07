@@ -103,9 +103,10 @@ exports.updateZakupy =(req, res, next) => {
     const zakupyId = req.body.zakupyId;
     const zakupyData ={...req.body};
     console.log(zakupyData)
+    console.log(zakupyId)
     ZakupyConroller.updateZakupy(zakupyId,zakupyData).then(result =>{
         res.redirect('/zakups');
-    }).catch(err =>{
+    }).catch(rar =>{
         res.render('pages/Zakupy/form',{
             sklep:{},
             pageTitle:'Edutuj Sklep',
@@ -113,11 +114,10 @@ exports.updateZakupy =(req, res, next) => {
             btnLabel:'Dodaj sklep',
             formAction:'/zakups/edit/',
             navLocation:'zakups',
-            validationErrors:err.details
+            validationErrors:rar.details
         });
 
 })
-    console.log(err.details)
 };
 exports.deleteZakupy =(req, res, next) => {
     const klientId = req.params.zakupyId;

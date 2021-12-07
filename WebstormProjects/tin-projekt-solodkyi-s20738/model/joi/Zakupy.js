@@ -21,6 +21,7 @@ const errMessages = (errors) => {
 
 const klientSchema = Joi.object(
     {
+        zakupyId:Joi.number().optional().allow(""),
         id_sklep: Joi.number().optional().allow(""),
         id_klient: Joi.number().optional().allow(""),
         DataVizytu: Joi.date().min("01-01-2000").max("now").required(errMessages),

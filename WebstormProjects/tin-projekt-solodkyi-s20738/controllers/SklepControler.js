@@ -55,7 +55,7 @@ exports.addSklep =(req, res, next) => {
     SklepRepository.createSklep(id_klient).then(result =>{
         res.redirect('/skleps');
     }).catch(err =>{
-        res.render('pages/Zakupy/form',{
+        res.render('pages/Sklepy/form',{
             sklep:{},
             pageTitle:'Nowy Sklep',
             formMode:'createNew',
@@ -76,10 +76,10 @@ exports.updateSklep =(req, res, next) => {
     SklepRepository.updateSklep(sklepId,sklepData).then(result =>{
         res.redirect('/skleps');
     }).catch(err =>{
-        res.render('pages/Zakupy/form',{
+        res.render('pages/Sklepy/form',{
             sklep:{},
-            pageTitle:'Nowy Sklep',
-            formMode:'edit',
+            pageTitle:'Edytuj Sklep',
+            formMode:'createNew',
             btnLabel:'Dodaj sklep',
             formAction:'/skleps/edit',
             navLocation:'skleps',

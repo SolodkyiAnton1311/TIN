@@ -36,9 +36,9 @@ exports.showKlientDetails=(req,res,next) => {
 };
 exports.showKlientEditForm=(req, res, next) => {
     const id_klient = req.params.klientId;
-    KlientRepository.getKlientsById(id_klient).then(klient =>{
+    KlientRepository.getKlientsById(id_klient).then(klientId =>{
         res.render('pages/Klient/form',{
-            klient: klient,
+            klient: klientId,
             formMode: 'edit',
             pageTitle: 'Edycja klienta',
             btnLabel: 'Edytuj klienta',
