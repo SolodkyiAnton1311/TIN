@@ -46,6 +46,13 @@ i18n.configure({
   cookie: 'acme-hr-lang', //nazwa cookies, które nasza aplikacja będzie wykorzystywać do przechowania informacji o języku aktualnie wybranym przez użytkownika
 });
 app.use(i18n.init);
+app.use((req, res, next) => {
+  if(!res.locals.lang) {
+    const currentLang = req.cookies['acme-hr-lang'];
+    res.locals.lang = currentLang;
+  }
+  next();
+});
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));

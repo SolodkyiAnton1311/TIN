@@ -14,10 +14,6 @@
 			"details": "Details",
 			"edit": "Edit",
 			"delete": "Delete"
-		},
-		"addNew": "Add new client",
-		"form": {
-			"cancel": "Cancel"
 		}
 	},
 	"form": {
@@ -26,7 +22,9 @@
 			"edit": "Edit",
 			"cancel": "Cancel"
 		},
-		"cancel": "cancel"
+		"action": {
+			"return": "form.action.return"
+		}
 	},
 	"klient": {
 		"fields": {
@@ -59,8 +57,35 @@
 	"shop": {
 		"fields": {
 			"adres": "Street",
-			"data": "Date of Open"
+			"data": "Date of Open",
+			"list": {
+				"title": "Shops",
+				"addNew": "Add new Shop",
+				"pageTitle": "List of Shops",
+				"editTitle": "Edit Shop",
+				"detailsTitle": "Details Shop"
+			}
+		}
+	},
+	"zakupy": {
+		"fields": {
+			"firstName": "Firstname",
+			"lastName": "Lastname",
+			"adres": "Street",
+			"straczonasumma": "Spent money",
+			"dataLast": "Date of last vizit",
+			"dateNext": "Date of next vizit",
+			"market": "Market",
+			"chooseMarket": "Choose Market",
+			"chooseClient": "Choose Client",
+			"client": "Client",
+			"list": {
+				"title": "Shopping",
+				"addNew": "Add new Shopping",
+				"pageTitle": "List of Shopping",
+				"editTitle": "Edit Shopping",
+				"detailsTitle": "Details Shopping"
+			}
 		}
 	}
-
 }

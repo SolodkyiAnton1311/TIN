@@ -1,18 +1,18 @@
 <%- include('../../fragments/header.ejs') %>
 <main>
     <h2>
-        <b>Lista Zakupow</b>
+        <b><%=__('zakupy.fields.list.pageTitle')%></b>
     </h2>
     <table class="tabele-list">
         <thread>
             <tr>
-                <th>Imie klienta</th>
-                <th>Nazwisko klienta</th>
-                <th>Addresa</th>
-                <th>Straczona suma</th>
-                <th>Data ostatniego wizytu</th>
-                <th>Data nastepnego wizytu</th>
-                <th>Akcje</th>
+                <th><%= __('zakupy.fields.firstName')%></th>
+                <th><%= __('zakupy.fields.lastName')%></th>
+                <th><%= __('zakupy.fields.adres')%></th>
+                <th><%= __('zakupy.fields.straczonasumma')%></th>
+                <th><%= __('zakupy.fields.dataLast')%></th>
+                <th><%= __('zakupy.fields.dateNext')%></th>
+                <th><%= __('list.actions.title') %></th>
             </tr>
         </thread>
         <tbody>
@@ -26,12 +26,12 @@
             <td><%= zakup.data_nastepnego_wizytu.toISOString().split('T')[0]%></td>
             <td>
                 <ul>
-                    <a href="/zakups/details/<%=zakup.id_sklep_klient%>" class="list-actions-button-details">Szczegoly</a>
-                    <a href="/zakups/edit/<%=zakup.id_sklep_klient%>" class="list-actions-button-edit"> Edytuj</a>
+                    <a href="/zakups/details/<%=zakup.id_sklep_klient%>" class="list-actions-button-details"><%= __('list.actions.details')%></a>
+                    <a href="/zakups/edit/<%=zakup.id_sklep_klient%>" class="list-actions-button-edit"> <%= __('list.actions.edit')%></a>
                     <a href="/zakups/delete/<%=zakup.id_sklep_klient%>" onclick="function myFunction() {
                        alert('Rekord zostal usunienty');
                         }
-                        myFunction()" class="list-actions-button-delete" >Usuń</a>
+                        myFunction()" class="list-actions-button-delete" ><%= __('list.actions.delete')%></a>
 
                 </ul></td>
         </tr>
@@ -39,6 +39,6 @@
         </tbody>
     </table>
 
-    <p><a href="/zakups/add" class="button-add">Dodac nowe zakupy</a></p>
+    <p><a href="/zakups/add" class="button-add"><%= __('zakupy.fields.list.addNew')%></a></p>
 </main>
 <%- include('../../fragments/footer.ejs') %>

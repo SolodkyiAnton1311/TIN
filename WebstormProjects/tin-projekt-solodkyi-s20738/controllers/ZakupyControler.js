@@ -26,8 +26,8 @@ exports.showAddZakupyForm=(req,res,next) => {
                formMode:'createNew',
                allKlient:allKlient,
                allSklep:allSklep,
-               pageTitle:'Nowe Zakupy',
-               btnLabel:'Dodaj zakupy',
+               pageTitle:req.__('zakupy.fields.list.pageTitle'),
+               btnLabel:req.__('shop.fields.list.addNew'),
                formAction:'/zakups/add',
                navLocation:'Zakupy',
                validationErrors:[]
@@ -54,8 +54,8 @@ exports.showZakupyDetails=(req,res,next) => {
                 formMode:'showDetails',
                 allKlient:allKlient,
                 allSklep:allSklep,
-                pageTitle:'Szegoly Zakupy',
-                btnLabel:'Szegoly zakupy',
+                pageTitle:req.__('shop.fields.list.detailsTitle'),
+                btnLabel:req.__('shop.fields.list.editTitle'),
                 formAction:'zakups/edit/:sklepId',
                 navLocation:'Zakupy',
                 validationErrors:[]
@@ -81,8 +81,8 @@ exports.showEditZakupyFrom=(req,res,next) => {
                 formMode:'edit',
                 allKlient:allKlient,
                 allSklep:allSklep,
-                pageTitle:'Edytuj Zakupy',
-                btnLabel:'Edytuj zakupy',
+                pageTitle:req.__('shop.fields.list.editTitle'),
+                btnLabel:req.__('form.actions.edit'),
                 formAction:'/zakups/edit/',
                 navLocation:'Zakupy',
                 validationErrors:[]

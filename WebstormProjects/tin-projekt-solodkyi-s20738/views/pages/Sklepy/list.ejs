@@ -2,7 +2,7 @@
 <main>
 
     <h2>
-        <b>Lista Sklepow</b>
+        <b><%=__('shop.fields.list.pageTitle')%></b>
     </h2>
     <table class="tabele-list">
         <thread>
@@ -32,5 +32,5 @@
         </tbody>
     </table>
 
-    <p><a href="/skleps/add" class="button-add">Dodać nowego klienta</a></p>
+    <p><a href="/skleps/add" class="button-add"><%= __('shop.fields.list.addNew')%></a></p>
 <%- include('../../fragments/footer.ejs') %>

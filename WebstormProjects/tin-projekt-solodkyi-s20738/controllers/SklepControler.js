@@ -11,9 +11,9 @@ exports.showSklepList=(req,res,next) => {
 exports.showAddSkelpForm=(req,res,next) => {
     res.render('pages/Sklepy/form',{
             sklep:{},
-            pageTitle:'Nowy Sklep',
+            pageTitle:req.__('shop.fields.list.pageTitle'),
             formMode:'createNew',
-            btnLabel:'Dodaj sklep',
+             btnLabel: req.__('shop.fields.list.addNew'),
             formAction:'/skleps/add',
             navLocation:'sklep',
          validationErrors:[]
@@ -26,8 +26,8 @@ exports.showSklepDetails=(req,res,next) => {
         res.render('pages/Sklepy/form',{
             sklep: sklep,
             formMode:'showDetails',
-            pageTitle:'Szegoly Sklepa',
-            btnLabel:'Edytuj Sklep',
+            pageTitle:req.__('shop.fields.list.detailsTitle'),
+            btnLabel: req.__('shop.fields.list.editTitle'),
             formAction:'edit/sklepId',
             validationErrors:[]
 
@@ -40,8 +40,8 @@ exports.showEditSklepForm=(req, res, next) => {
         res.render('pages/Sklepy/form',{
             sklep: sklep,
             formMode: 'edit',
-            pageTitle: 'Edycja sklepa',
-            btnLabel: 'Edytuj sklep',
+            pageTitle: req.__('shop.fields.list.editTitle'),
+            btnLabel:req.__('form.actions.edit'),
             formAction: '/skleps/edit/',
             navLocation: 'skleps',
             validationErrors:[]

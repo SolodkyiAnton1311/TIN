@@ -3,14 +3,14 @@
     <h2><%= pageTitle%></h2>
     <form class="form" method="post" action="<%=formAction%>" novalidate onsubmit="return validateForm();">
         <input type="hidden" name="sklepId" id="sklepId" value="<%=sklep.id%>">
-        <label for="Adres"class="symbol-required">Adres*:</label>
+        <label for="Adres"class="symbol-required"><%= __('shop.fields.adres')%>*:</label>
         <input type="text" name="Adresa" id="Adresa" class="<%validationErrors.find(e => e.path.includes('Adresa'))?'error-input':''%>" required value="<%=sklep.adres%>"
                 <%=(formMode === 'showDetails')?'disabled':''%>/>
         <span class="" id="errorAdres"><% if (validationErrors.find(e=> e.path.includes('Adresa'))){%>
                 <%= validationErrors.find(e=>e.path.includes('Adresa')).message%>
             <%}%></span>
         <%if (formMode === 'createNew'){%>
-        <label for="dateOfOpen" class="symbol-required">Data Otwarcia*:</label>
+        <label for="dateOfOpen" class="symbol-required"><%= __('shop.fields.data')%>*:</label>
         <input type="date" name="Data_otwarcia" id="Data_otwarcia" class="<%validationErrors.find(e => e.path.includes('Data_otwarcia'))?'error-input':''%>" required value="<%=sklep.date%>"
                 <%=(formMode === 'showDetails')?'disabled':''%>/>
 
@@ -27,10 +27,10 @@
         <div class="selection-buttons">
             <%if (formMode !== 'showDetails'){%>
             <input class="form-button-submit" type="submit" value="<%=btnLabel%>"/>
-            <a class="form-button-cancel" href="/skleps">Anuluj</a>
+            <a class="form-button-cancel" href="/skleps"><%= __('form.actions.return')%></a>
             <%} else { %>
-            <a href="/skleps/edit/<%=sklep.id%>" class="form-button-submit" >Edytuj Klienta</a>
-            <a class="form-button-cancel" href="/skleps">Anuluj</a>
+            <a href="/skleps/edit/<%=sklep.id%>" class="form-button-submit" ><%=btnLabel%></a>
+            <a class="form-button-cancel" href="/skleps"><%= __('form.actions.return')%></a>
             <%} %>
         </div>
     </form>

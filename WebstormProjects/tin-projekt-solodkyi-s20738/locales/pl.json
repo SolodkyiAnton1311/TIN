@@ -1,25 +1,25 @@
 {
   "main-page": {
-    "content": "Strona główna"
+    "content": "Witamy w na stronie internetowej Śieci sklepow Truskawka!"
   },
   "nav": {
-    "main-page": "Strona główna",
-    "employees": "Klieci",
+    "main-page": "Glówna Strona",
+    "employees": "Klienci",
     "departments": "Sklepy",
     "employments": "Zakupy"
   },
   "list": {
     "actions": {
       "title": "Akcje",
-      "details": "Szczegóły",
-      "edit": "Edytuj",
+      "details": "Szególy",
+      "edit": "Edycja",
       "delete": "Usuń"
     }
   },
   "form": {
     "actions": {
-      "return": "Powrót",
-      "edit": "Edytuj",
+      "return": "Zwrót",
+      "edit": "Edycja",
       "cancel": "Anuluj"
     }
   },
@@ -27,13 +27,16 @@
     "fields": {
       "firstName": "Imię",
       "lastName": "Nazwisko",
-      "wiek": "Wiek",
-      "plec": "Plec"
+      "Age": "Wiek",
+      "Sex": "Plec",
+      "title": "Klienci"
     },
     "list": {
       "title": "Klienci",
       "addNew": "Dodaj nowego klienta",
-      "pageTitle": "Lista pracowników"
+      "pageTitle": "Lista klientów",
+      "editTitle": "Edituj klienta",
+      "detailsTitle": "Szególy klienta"
     },
     "form": {
       "employment": "Historia zatrudnienia",
@@ -42,8 +45,43 @@
         "btnLabel": "Dodaj pracownika"
       },
       "edit": {
-        "pageTitle": "Edycja Klienta",
-        "btnLabel": "Zapisz zmiany"
+        "pageTitle": "Edytuj klienta",
+        "btnLabel": "podtwierdz"
+      },
+      "cancel": "Anuluj"
+    }
+  },
+  "shop": {
+    "fields": {
+      "adres": "Ulica",
+      "data": "Data otwarcia",
+      "list": {
+        "title": "Sklepy",
+        "addNew": "Dodaj nowy sklep",
+        "pageTitle": "Lista sklepów",
+        "editTitle": "Edituj sklep",
+        "detailsTitle": "Szególy sklepa"
+      }
+    }
+  },
+  "zakupy": {
+    "fields": {
+      "firstName": "Imię",
+      "lastName": "Nazwisko",
+      "adres": "Ulica",
+      "straczonasumma": "Straczona summa",
+      "dataLast": "Data ostatniego wizuty",
+      "dateNext": "Data następnego wizytu",
+      "market": "Sklep",
+      "chooseMarket": "Wybież Sklep",
+      "chooseClient": "Wybież Klienta",
+      "client": "Klient",
+      "list": {
+        "title": "Zakupy",
+        "addNew": "Dodaj nowe zakupy",
+        "pageTitle": "Lista klientów",
+        "editTitle": "Edytuj zakupy",
+        "detailsTitle": "Szególy zakupów"
       }
     }
   }
