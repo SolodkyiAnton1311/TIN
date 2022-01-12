@@ -7,9 +7,9 @@
     <table class="tabele-list">
         <thread>
             <tr>
-                <th>Adres</th>
-                <th>Data otwarcia</th>
-                <th>Akcje</th>
+                <th><%= __('shop.fields.adres')%></th>
+                <th><%= __('shop.fields.data')%></th>
+                <th><%= __('list.actions.title') %></th>
             </tr>
         </thread>
         <tbody>
@@ -19,12 +19,12 @@
                 <td><%= sklep.Data_otwarcia.toISOString().split('T')[0]%></td>
                 <td>
                 <ul>
-                    <a href="/skleps/details/<%=sklep.id_sklep%>" class="list-actions-button-details">Szczegoly</a>
-                    <a href="/skleps/edit/<%=sklep.id_sklep%>" class="list-actions-button-edit"> Edytuj</a>
+                    <a href="/skleps/details/<%=sklep.id_sklep%>" class="list-actions-button-details"><%= __('list.actions.details')%></a>
+                    <a href="/skleps/edit/<%=sklep.id_sklep%>" class="list-actions-button-edit"> <%= __('list.actions.edit')%></a>
                     <a href="/skleps/delete/<%=sklep.id_sklep%>" onclick="function myFunction() {
                        alert('Rekord zostal usunienty');
                         }
-                        myFunction()" class="list-actions-button-delete" >Usuń</a>
+                        myFunction()" class="list-actions-button-delete" ><%= __('list.actions.delete')%></a>
 
             </ul></td>
         </tr>

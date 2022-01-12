@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const {Sequelize} = require("sequelize");
 
 const errMessages = (errors) => {
     errors.forEach(err => {
@@ -25,8 +26,10 @@ const klientSchema = Joi.object(
         Imie:Joi.string().min(2).max(20).required(errMessages),
         Nazwisko: Joi.string().min(2).max(20).required(errMessages),
         Wiek: Joi.number().min(5).max(120).required(errMessages),
-        Plec: Joi.string().min(1).max(1).required(errMessages)
+        Plec: Joi.string().min(1).max(1).required(errMessages),
+        password: Joi.string().required(errMessages)
     }
+
 );
 
 module.exports = klientSchema;

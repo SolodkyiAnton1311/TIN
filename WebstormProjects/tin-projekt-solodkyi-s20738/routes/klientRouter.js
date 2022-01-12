@@ -9,3 +9,4 @@ module.exports =router;
 router.post('/add',klientControler.addKlient);
 router.post('/edit',klientControler.updateKlient);
 router.get('/delete/:klientId',klientControler.deleteKlient);
+

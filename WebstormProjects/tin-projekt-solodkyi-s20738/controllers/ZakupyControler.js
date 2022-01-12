@@ -93,9 +93,29 @@ exports.showEditZakupyFrom=(req,res,next) => {
 exports.addZakupy =(req, res, next) => {
 
     const id_klient={...req.body};
-
     ZakupyConroller.createZakupy(id_klient).then(result =>{
         res.redirect('/zakups');
+    }).catch(err =>{
+        let allKlient,allSklep;
+        KlientRepository.getKlients().then(klienci => {
+            allKlient = klienci;
+            return SklepRepository.getSklep();
+        }).then(skleps => {
+            allSklep = skleps;
+            res.render("pages/Zakupy/form",
+                {
+                    zakups:{},
+                    formMode:'createNew',
+                    allKlient:allKlient,
+                    allSklep:allSklep,
+                    pageTitle:'Nowe Zakupy',
+                    btnLabel:'Dodaj zakupy',
+                    formAction:'/zakups/add',
+                    navLocation:'Zakupy',
+                    validationErrors:err.details
+                });
+            console.log(err.details)
+        })
     });
 
 };
@@ -106,18 +126,33 @@ exports.updateZakupy =(req, res, next) => {
     console.log(zakupyId)
     ZakupyConroller.updateZakupy(zakupyId,zakupyData).then(result =>{
         res.redirect('/zakups');
-    }).catch(rar =>{
-        res.render('pages/Zakupy/form',{
-            sklep:{},
-            pageTitle:'Edutuj Sklep',
-            formMode:'edit',
-            btnLabel:'Dodaj sklep',
-            formAction:'/zakups/edit/',
-            navLocation:'zakups',
-            validationErrors:rar.details
+    }).catch(err =>{
+        const klientId = req.params.zakupyId;
+        let allKlient,allSklep,zatar;
+        KlientRepository.getKlients().then(klienci => {
+            allKlient = klienci;
+            return SklepRepository.getSklep();
+        }).then(skleps => {
+            allSklep = skleps;
+            return ZakupyConroller.getZakupyById(klientId);
+        }).then(zakupy => {
+            zatar = zakupy;
+            res.render("pages/Zakupy/form",
+                {
+                    zakups:zatar,
+                    formMode:'createNew',
+                    allKlient:allKlient,
+                    allSklep:allSklep,
+                    pageTitle:'Edytuj Zakupy',
+                    btnLabel:'Edytuj zakupy',
+                    formAction:'/zakups/edit/',
+                    navLocation:'Zakupy',
+                    validationErrors:err.details
+                });
+        })
+
         });
 
-})
 };
 exports.deleteZakupy =(req, res, next) => {
     const klientId = req.params.zakupyId;

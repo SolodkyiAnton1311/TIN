@@ -13,7 +13,7 @@
 
         </select>
         <span id="errorSklep"><% if (validationErrors.find(e=> e.path.includes('id_sklep'))){%>
-                <%= validationErrors.find(e=>e.path.includes('id_sklep').message)%>
+                <%= validationErrors.find(e=>e.path.includes('id_sklep')).message%>
             <%}%></span>
         <label for="id_klient" class="symbol-required">Klient*:</label>
         <select name="id_klient" class="<%validationErrors.find(e => e.path.includes('id_klient'))?'error-input':''%>" id="id_klient" required<%=(formMode === 'showDetails')?'disabled':''%>>
@@ -23,7 +23,7 @@
                     <%=(zakups.id && zakups.klients[klientos++].id === klient.id_klient) ? 'selected':'' %>></option>
             <%}%>
             <span id="errorKlient">id="errorSklep"><% if (validationErrors.find(e=> e.path.includes('id_klient'))){%>
-                    <%= validationErrors.find(e=>e.path.includes('id_klient').message)%>
+                    <%= validationErrors.find(e=>e.path.includes('id_klient')).message%>
                 <%}%></span>
 
         </select>
@@ -33,32 +33,32 @@
         <input type="date" name="DataVizytu" id="DataVizytu"  required class="<%validationErrors.find(e => e.path.includes('DataVizytu'))?'error-input':''%>"  value="<%=zakups.DataVizytu%>"
                 <%=(formMode === 'showDetails')?'disabled':''%>/>
         <span id="errorWizit"><% if (validationErrors.find(e=> e.path.includes('data_ostatniego_wizutu_klienta'))){%>
-                <%= validationErrors.find(e=>e.path.includes('data_ostatniego_wizutu_klienta').message)%>
+                <%= validationErrors.find(e=>e.path.includes('data_ostatniego_wizutu_klienta')).message%>
             <%}%> </span>
         <label for="DataNastepnego">Data nastepnego wizytu:</label>
         <input type="date" name="DataNastepnego"id="DataNastepnego" class="<%validationErrors.find(e => e.path.includes('data_nastepnego_wizytu'))?'error-input':''%>" value="<%=zakups.DataNastepnego%>"
                 <%=(formMode === 'showDetails')?'disabled':''%>/>
         <span id="errorNextWizit"><% if (validationErrors.find(e=> e.path.includes('data_nastepnego_wizytu'))){%>
-                <%= validationErrors.find(e=>e.path.includes('data_nastepnego_wizytu').message)%>
+                <%= validationErrors.find(e=>e.path.includes('data_nastepnego_wizytu')).message%>
             <%}%></span>
         <%}else {%>
         <input type="date" name="DataVizytu" id="DataVizytu" class="<%validationErrors.find(e => e.path.includes('DataVizytu'))?'error-input':''%>" required value="<%=zakups.DataVizytu.toISOString().split('T')[0]%>"
                 <%=(formMode === 'showDetails')?'disabled':''%>/>
         <span id="errorWizit"><% if (validationErrors.find(e=> e.path.includes('data_ostatniego_wizutu_klienta'))){%>
-                <%= validationErrors.find(e=>e.path.includes('data_ostatniego_wizutu_klienta').message)%>
+                <%= validationErrors.find(e=>e.path.includes('data_ostatniego_wizutu_klienta')).message%>
             <%}%></span>
         <label for="DataNastepnego">Data nastepnego wizytu:</label>
         <input type="date" name="DataNastepnego" id="DataNastepnego" class="<%validationErrors.find(e => e.path.includes('DataNastepnego'))?'error-input':''%>" value="<%=zakups.DataNastepnego.toISOString().split('T')[0]%>"
                 <%=(formMode === 'showDetails')?'disabled':''%>/>
         <span id="errorNextWizit"><% if (validationErrors.find(e=> e.path.includes('DataNastepnego'))){%>
-                <%= validationErrors.find(e=>e.path.includes('data_nastepnego_wizytu').message)%>
+                <%= validationErrors.find(e=>e.path.includes('data_nastepnego_wizytu')).message%>
             <%}%></span>
         <%}%>
         <label for="straczona_summa"class="symbol-required">Straczona suma*:</label>
         <input type="number" name="straczona_summa" id="straczona_summa" class="<%validationErrors.find(e => e.path.includes('straczona_summa'))?'error-input':''%>" required value="<%=zakups.straczona_summa%>"
                 <%=(formMode === 'showDetails')?'disabled':''%>/>
         <span id="straczonaSumaError"><% if (validationErrors.find(e=> e.path.includes('Data_otwarcia'))){%>
-                <%= validationErrors.find(e=>e.path.includes('straczona_summa').message)%>
+                <%= validationErrors.find(e=>e.path.includes('straczona_summa')).message%>
             <%}%></span>
 
 

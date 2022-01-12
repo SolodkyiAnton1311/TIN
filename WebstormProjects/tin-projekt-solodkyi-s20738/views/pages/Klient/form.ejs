@@ -1,47 +1,47 @@
 <%- include('../../../views/fragments/header.ejs') %>
 <main>
   <h2><%= pageTitle%></h2>
-  <form class="form" method="post" action="<%=formAction%> " novalidate>
+  <form class="form" method="post" action="<%=formAction%> " novalidate onsubmit="return validateForm()">
     <input type="hidden" name="klientId" id="klientId" value="<%=klient.id%>">
-    <label for="Imie" class="symbol-required" > Imie*:</label>
+    <label for="Imie" class="symbol-required" > <%= __('klient.fields.firstName')%>*:</label>
     <input class="<%validationErrors.find(e => e.path.includes('Imie'))?'error-input':''%>>" type="text" name="Imie" id="Imie" placeholder="3-20 znakow" value="<%=klient.name%>"
             <%=(formMode === 'showDetails')?'disabled':''%>/>
 
     <span id="errorImie" class="error-text"><% if (validationErrors.find(e=> e.path.includes('Imie'))){%>
-    <%= validationErrors.find(e=>e.path.includes('Imie').message)%>
+    <%= validationErrors.find(e=>e.path.includes('Imie')).message%>
       <%}%>
     </span>
-    <label for="Nazwisko" class="symbol-required">Nazwisko*:</label>
+    <label for="Nazwisko" class="symbol-required"><%= __('klient.fields.lastName')%>*:</label>
     <input type="text" name="Nazwisko" id="Nazwisko" placeholder="3-20 znaków" value="<%=klient.lastName%>" required
             <%=(formMode === 'showDetails')?'disabled':''%>/>
 
-    <span id="errorNazwisko" class="error-text"><% if (validationErrors.find(e=> e.path.includes('Nazwisko'))){%>
-        <%= validationErrors.find(e=>e.path.includes('Nazwisko').message)%>
+    <span id="errorNazwisko" class="error-text"> <% if (validationErrors.find(e=> e.path.includes('Nazwisko'))){%>
+        <%= validationErrors.find(e=>e.path.includes('Nazwisko')).message %>
       <%}%>
     </span>
-    <label for="age" class="symbol-required" placeholder="od 10 do 100">Wiek*:</label>
+    <label for="age" class="symbol-required" placeholder="od 10 do 100"><%= __('klient.fields.Age')%>*:</label>
     <input type="number" name="Wiek" id="Wiek" value="<%=klient.wiek%>" required
             <%=(formMode === 'showDetails')?'disabled':''%>/>
 
     <span id="errorWiek" class="error-text"><% if (validationErrors.find(e=> e.path.includes('Wiek'))){%>
-        <%= validationErrors.find(e=>e.path.includes('Wiek').message)%>
+        <%= validationErrors.find(e=>e.path.includes('Wiek')).message%>
       <%}%>
     </span>
-    <label for="sex" class="symbol-required">Plec*:</label>
+    <label for="sex" class="symbol-required"><%= __('klient.fields.Sex')%>*:</label>
     <input type="text" name="Plec" id="Plec" value="<%=klient.plec%>" required
             <%=(formMode === 'showDetails')?'disabled':''%>/>
     <span id="errorWiek" class="error-text"><% if (validationErrors.find(e=> e.path.includes('Plec'))){%>
-        <%= validationErrors.find(e=>e.path.includes('Plec').message)%>
+        <%= validationErrors.find(e=>e.path.includes('Plec')).message%>
       <%}%>
     </span>
     <div class="selection-buttons">
     <%if (formMode !== 'showDetails'){%>
 
       <input class="form-button-submit" type="submit" value="<%=btnLabel%>"/>
-      <a class="form-button-cancel" href="/klients">Anuluj</a>
+      <a class="form-button-cancel" href="/klients"><%= __('list.form.cancel')%></a>
       <%} else { %>
-      <a href="/klients/edit/<%=klient.id%>" class="form-button-submit">Edytuj Sklep</a>
-      <a class="form-button-cancel" href="/klients">Anuluj</a>
+      <a href="/klients/edit/<%=klient.id%>" class="form-button-submit"><%=btnLabel%></a>
+      <a class="form-button-cancel" href="/klients"><%= __('list.form.cancel')%></a>
       <%} %>
     </div>
   </form>

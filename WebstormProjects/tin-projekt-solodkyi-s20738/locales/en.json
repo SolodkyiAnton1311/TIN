@@ -1,0 +1,66 @@
+{
+	"main-page": {
+		"content": "Welcome to the website of the Truskawka store, here you can see who and where was buying products in the Truskawka store!"
+	},
+	"nav": {
+		"main-page": "Main page",
+		"employees": "Clients",
+		"departments": "Market",
+		"employments": "Shopping"
+	},
+	"list": {
+		"actions": {
+			"title": "Actions",
+			"details": "Details",
+			"edit": "Edit",
+			"delete": "Delete"
+		},
+		"addNew": "Add new client",
+		"form": {
+			"cancel": "Cancel"
+		}
+	},
+	"form": {
+		"actions": {
+			"return": "Return",
+			"edit": "Edit",
+			"cancel": "Cancel"
+		},
+		"cancel": "cancel"
+	},
+	"klient": {
+		"fields": {
+			"firstName": "Firstname",
+			"lastName": "Lastname",
+			"Age": "Age",
+			"Sex": "Sex",
+			"title": "Clients"
+		},
+		"list": {
+			"title": "Clients",
+			"addNew": "Add new client",
+			"pageTitle": "List clients",
+			"editTitle": "Edit clients",
+			"detailsTitle": "Details clients"
+		},
+		"form": {
+			"employment": "Historia zatrudnienia",
+			"add": {
+				"pageTitle": "Dodawanie pracownika",
+				"btnLabel": "Dodaj pracownika"
+			},
+			"edit": {
+				"pageTitle": "Edit client",
+				"btnLabel": "apply"
+			},
+			"cancel": "cancel"
+		}
+	},
+	"shop": {
+		"fields": {
+			"adres": "Street",
+			"data": "Date of Open"
+		}
+	}
+
+}

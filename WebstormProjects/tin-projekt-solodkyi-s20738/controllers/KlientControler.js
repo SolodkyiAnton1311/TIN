@@ -5,7 +5,8 @@ exports.showKlientList = (req, res, next) => {
         .then(klientId => {
             res.render('pages/Klient/list', {
                 klienci:klientId,
-                navLocation:'klient'
+                navLocation:'klient',
+
             });
         });
 }
@@ -13,9 +14,9 @@ exports.showKlientList = (req, res, next) => {
 exports.showAddKlientForm=(req,res,next) => {
     res.render('pages/Klient/form',{
         klient:{},
-        pageTitle:'Nowy Klient',
+        pageTitle:req.__('klient.list.addNew'),
         formMode:'createNew',
-        btnLabel:'Dodaj klienta',
+        btnLabel: req.__('klient.list.addNew'),
         formAction:'/klients/add',
         navLocation:'klient',
         validationErrors:[]
@@ -27,8 +28,8 @@ exports.showKlientDetails=(req,res,next) => {
         res.render('pages/Klient/form',{
             klient: klient,
         formMode:'showDetails',
-        pageTitle:'Szegoly Klienta',
-            btnLabel:'Edytuj Klient',
+        pageTitle:req.__('klient.list.detailsTitle'),
+            btnLabel:req.__('form.actions.edit'),
             formAction:'edit/klientId',
             validationErrors:[]
     });})
@@ -40,8 +41,8 @@ exports.showKlientEditForm=(req, res, next) => {
         res.render('pages/Klient/form',{
             klient: klientId,
             formMode: 'edit',
-            pageTitle: 'Edycja klienta',
-            btnLabel: 'Edytuj klienta',
+            pageTitle:req.__('klient.list.editTitle'),
+            btnLabel:req.__('form.actions.edit'),
             formAction: '/klients/edit/',
             navLocation: 'klient',
             validationErrors:[]

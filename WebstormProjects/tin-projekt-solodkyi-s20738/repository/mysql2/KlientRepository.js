@@ -1,7 +1,8 @@
 const db = require('../../config/mysql2/db');
 const klientSchema = require('../../model/joi/Klient');
 
-exports.getKlients = () =>{ return db.promise().query('SELECT * FROM Klient').then((results,fields) =>
+exports.getKlients = () =>{
+    return db.promise().query('SELECT * FROM Klient').then((results,fields) =>
 {
     console.log(results[0]);
     return results[0];
@@ -75,6 +76,11 @@ exports.createKlient = (newKlientData) => {
     return   db.promise().execute(sql,[newKlientData.Imie,newKlientData.Nazwisko,newKlientData.Wiek,newKlientData.Plec,klientId]);
 
 };
+    exports.findByLastName = (Nazwisko) =>
+    {
+        const sql ="SELECT Nazwisko FROM Klient WHERE Nazwisko=?";
+        return db.promise().execute(sql,[Nazwisko])
+    }
 exports.deleteKlient = (klientId) => {
     const sql = "DELETE FROM Klient WHERE id_klient = ?";
     return db.promise().execute(sql, [klientId]);

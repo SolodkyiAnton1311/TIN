@@ -9,9 +9,9 @@ function resetErrors(inputs, errorTexts, errorInfo) {
 }
 
 function validateForm() {
-    const imieInput = document.getElementById('Imie');
+    const imieInput = document.getElementById('Adresa');
     const lastNameInput = document.getElementById('Nazwisko');
-    const ageInput = document.getElementById('Wiek');
+
 
 
     const errorFirstName = document.getElementById('errorImie');

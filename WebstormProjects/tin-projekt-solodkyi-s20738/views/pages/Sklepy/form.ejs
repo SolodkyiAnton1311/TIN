@@ -1,13 +1,13 @@
 <%- include('../../fragments/header.ejs') %>
 <main>
     <h2><%= pageTitle%></h2>
-    <form class="form" method="post" action="<%=formAction%>" novalidate>
+    <form class="form" method="post" action="<%=formAction%>" novalidate onsubmit="return validateForm();">
         <input type="hidden" name="sklepId" id="sklepId" value="<%=sklep.id%>">
         <label for="Adres"class="symbol-required">Adres*:</label>
         <input type="text" name="Adresa" id="Adresa" class="<%validationErrors.find(e => e.path.includes('Adresa'))?'error-input':''%>" required value="<%=sklep.adres%>"
                 <%=(formMode === 'showDetails')?'disabled':''%>/>
-        <span id="errorAdres"><% if (validationErrors.find(e=> e.path.includes('Adresa'))){%>
-                <%= validationErrors.find(e=>e.path.includes('Adresa').message)%>
+        <span class="" id="errorAdres"><% if (validationErrors.find(e=> e.path.includes('Adresa'))){%>
+                <%= validationErrors.find(e=>e.path.includes('Adresa')).message%>
             <%}%></span>
         <%if (formMode === 'createNew'){%>
         <label for="dateOfOpen" class="symbol-required">Data Otwarcia*:</label>
@@ -21,7 +21,7 @@
 
         <%} %>
         <span id="errorDateOfOpen"><% if (validationErrors.find(e=> e.path.includes('Data_otwarcia'))){%>
-                <%= validationErrors.find(e=>e.path.includes('Data_otwarcia').message)%>
+                <%= validationErrors.find(e=>e.path.includes('Data_otwarcia')).message%>
             <%}%>
         </span>
         <div class="selection-buttons">

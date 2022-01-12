@@ -2,16 +2,16 @@
 <main>
 
     <h2>
-        <b>Lista klientow</b>
+        <b><%= __('klient.list.title')%></b>
     </h2>
         <table class="tabele-list">
   <thread>
       <tr>
-          <th>Imię</th>
-          <th>Nazwisko</th>
-          <th>Wiek</th>
-          <th>Plec</th>
-          <th>Akcje</th>
+          <th><%= __('klient.fields.firstName')%></th>
+          <th><%= __('klient.fields.lastName')%></th>
+          <th><%= __('klient.fields.Age')%></th>
+          <th><%= __('klient.fields.Sex')%></th>
+          <th><%= __('list.actions.title') %></th>
       </tr>
   </thread>
             <tbody>
@@ -23,12 +23,12 @@
                 <td><%= klient.Plec%></td>
                 <td>
                     <ul>
-                        <a href="/klients/details/<%=klient.id_klient%>"  class="list-actions-button-details">Szczegoly</a>
-                        <a href="/klients/edit/<%=klient.id_klient%>"  class="list-actions-button-edit">Edytuj</a>
+                        <a href="/klients/details/<%=klient.id_klient%>"  class="list-actions-button-details"><%= __('list.actions.details')%></a>
+                        <a href="/klients/edit/<%=klient.id_klient%>"  class="list-actions-button-edit"><%= __('list.actions.edit')%></a>
                         <a href="/klients/delete/<%=klient.id_klient%>" onclick="function myFunction() {
                        alert('Rekord zostal usunienty');
                         }
-                        myFunction()" class="list-actions-button-delete" >Usuń</a>
+                        myFunction()" class="list-actions-button-delete" ><%= __('list.actions.delete')%></a>
 
                     </ul> </td>
             </tr>
@@ -36,7 +36,7 @@
             </tbody>
         </table>
     <form class="form-buttons">
-    <p><a href="/klients/add" class="button-add">Dodac nowego klienta</a></p>
+    <p><a href="/klients/add" class="button-add"><%= __('klient.list.addNew')%></a></p>
     </form>
 </main>
 <%- include('../../fragments/footer.ejs') %>

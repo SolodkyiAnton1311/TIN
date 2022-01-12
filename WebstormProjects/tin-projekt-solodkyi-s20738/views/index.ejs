@@ -1,7 +1,23 @@
 <%- include('./fragments/header.ejs') %>
 <main>
+    <%if(!loggedUser){%>
+    <div id = "login">
+        <h5>Logowanie</h5>
+        <form method="post" action="/login" novalidate>
+            <label for="loginNazwisko">Nazwisko</label>
+            <input type="text" id="loginNazwisko" name="Nazwisko">
+
+            <label for="loginPassword">Haslo</label>
+            <input type="password" id="loginNazwisko" name="password">
+            <input type="submit" value="Zaloguj sie">
+            <span id="loginError"><%= loginError?loginError:''%></span>
+        </form>
+    </div>
+    <%}else {%>
+        <span>Jestes zalogowany jako :<%=loggedUser.Imie + " " + loggedUser.Nazwisko%></span>
+        <a href="/logout">Wyloguj sie</a>
+    <%}%>
     <h2>Strona Glowna</h2>
-    <p>Witamy na stronie internatowej sklepu Truskawka , tutaj ty mozesz
-    zobaczycz kto i gdzie kupowal pordukty w sklepie Truskawka!</p>
+    <p><%= __('main-page.content') %></p>
 </main>
 <%- include('./fragments/footer.ejs') %>
