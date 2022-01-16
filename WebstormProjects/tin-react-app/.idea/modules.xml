@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/GRK.iml" filepath="$PROJECT_DIR$/.idea/GRK.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/tin-react-app.iml" filepath="$PROJECT_DIR$/.idea/tin-react-app.iml" />
     </modules>
   </component>
 </project>
