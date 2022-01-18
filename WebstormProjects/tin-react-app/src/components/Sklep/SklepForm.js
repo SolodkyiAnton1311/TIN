@@ -8,6 +8,7 @@ import {
     getSklepByIdApiCall, updateSklepApiCall,
 } from "../../apiCalls/sklepApiCalls";
 import {checkRequired, checkTextLengthRange} from "../../helper/validationCommon";
+import {withTranslation} from "react-i18next";
 
 class SklepForm extends React.Component {
     constructor(props) {
@@ -129,7 +130,7 @@ class SklepForm extends React.Component {
         const errorsSummary = this.hasErrors() ? 'Formularz zawiera błędy' : ''
         const fetchError = this.state.error ? `Błąd: ${this.state.error.message}` : ''
         const pageTitle = this.state.formMode === formMode.NEW ? 'Nowy Sklep' : 'Edycja Sklepa'
-
+        const {t} = this.props;
         const globalErrorMessage = errorsSummary || fetchError || this.state.message
 
         return (
@@ -138,7 +139,7 @@ class SklepForm extends React.Component {
                 <form className="form" onSubmit={this.handleSubmit}>
                     <FormInput
                         type="text"
-                        label="Adres"
+                        label={t('shop.fields.adres')}
                         required
                         error={this.state.errors.Adresa}
                         name="Adresa"
@@ -149,7 +150,7 @@ class SklepForm extends React.Component {
 
                     <FormInput
                         type="date"
-                        label="Date"
+                        label={t('shop.fields.data')}
                         required
                         error={this.state.errors.Data_otwarcia}
                         name="Data_otwarcia"
@@ -249,4 +250,4 @@ class SklepForm extends React.Component {
     }
 }
 
-export default SklepForm
+export default withTranslation() (SklepForm)

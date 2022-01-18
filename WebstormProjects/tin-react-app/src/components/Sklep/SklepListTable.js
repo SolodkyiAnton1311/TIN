@@ -1,15 +1,17 @@
 import React from "react";
 import SklepListTableRow from "./SklepListTableRow"
+import {withTranslation} from "react-i18next";
 function SklepListTable(props)
 {
+    const {t} = props;
     const sklep = props.sklepList
     return(
         <table className="tabele-list">
             <thead>
             <tr>
-                <th>Adres sklepu</th>
-                <th>Data otwarcia</th>
-                <th>Akcje</th>
+                <th>{t('shop.fields.adres')}</th>
+                <th>{t('shop.fields.data')}</th>
+                <th>{t('list.actions.title')}</th>
             </tr>
             </thead>
             <tbody>
@@ -21,4 +23,4 @@ function SklepListTable(props)
     )
 
 }
-export default SklepListTable
+export default withTranslation() (SklepListTable)

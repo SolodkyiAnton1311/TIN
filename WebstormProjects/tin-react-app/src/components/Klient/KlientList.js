@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from "react-router-dom";
 import {getKlientApiCall} from "../../apiCalls/klientApiCalls";
 import KlientListTable from "./KlientListTable";
-
+import {withTranslation} from 'react-i18next'
 class KlientList extends React.Component {
 
     constructor(props) {
@@ -50,13 +50,13 @@ class KlientList extends React.Component {
         } else {
             content = <KlientListTable klientList={klients} />
         }
-
+        const {t} = this.props;
         return (
             <main>
-                <h2>Lista klientow</h2>
+                <h2>{t('klient.list.pageTitle')}</h2>
                 {content}
                 <p className="section-buttons">
-                    <Link to="/klients/add" className="button-add">Dodaj nowego Klienta</Link>
+                    <Link to="/klients/add" className="button-add">{t('klient.list.addNew')}</Link>
                 </p>
             </main>
         )
@@ -64,4 +64,4 @@ class KlientList extends React.Component {
 }
 
 
-export default KlientList
+export default withTranslation() (KlientList)

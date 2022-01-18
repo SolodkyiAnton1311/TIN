@@ -6,6 +6,7 @@ import FormInput from "../form/FormInput";
 import FormButtons from "../form/FormButtons";
 import {addKlientApiCall, getKlientByIdApiCall, updateKlientApiCall} from "../../apiCalls/klientApiCalls";
 import {checkRequired, checkTextLengthRange} from "../../helper/validationCommon";
+import {withTranslation} from "react-i18next";
 
 class KlientForm extends React.Component {
     constructor(props) {
@@ -143,14 +144,14 @@ class KlientForm extends React.Component {
         const pageTitle = this.state.formMode === formMode.NEW ? 'Nowy Klient' : 'Edycja Klienta'
 
         const globalErrorMessage = errorsSummary || fetchError || this.state.message
-
+        const {t} = this.props;
         return (
             <main>
                 <h2>{pageTitle}</h2>
                 <form className="form" onSubmit={this.handleSubmit}>
                     <FormInput
                         type="text"
-                        label="Imię"
+                        label={t('klient.fields.firstName')}
                         required
                         error={this.state.errors.Imie}
                         name="Imie"
@@ -161,7 +162,7 @@ class KlientForm extends React.Component {
 
                     <FormInput
                         type="text"
-                        label="Nazwisko"
+                        label={t('klient.fields.lastName')}
                         required
                         error={this.state.errors.Nazwisko}
                         name="Nazwisko"
@@ -172,7 +173,7 @@ class KlientForm extends React.Component {
 
                     <FormInput
                         type="number"
-                        label="Wiek"
+                        label={t('klient.fields.Age')}
                         required
                         error={this.state.errors.Wiek}
                         name="Wiek"
@@ -182,7 +183,7 @@ class KlientForm extends React.Component {
 
                     <FormInput
                         type="text"
-                        label="Plec"
+                        label={t('klient.fields.Sex')}
                         required
                         error={this.state.errors.Plec}
                         name="Plec"
@@ -228,7 +229,6 @@ class KlientForm extends React.Component {
             } else if (currentFormMode === formMode.EDIT) {
 
                 const klientId = this.props.match.params.klientId;
-                console.log(this.state.id_klient)
                 promise = updateKlientApiCall(klientId, klient)
             }
             if (promise) {
@@ -280,4 +280,4 @@ class KlientForm extends React.Component {
     }
 }
 
-export default KlientForm
+export default withTranslation()  (KlientForm)

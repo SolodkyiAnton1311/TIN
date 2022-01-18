@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { getKlientByIdApiCall } from '../../apiCalls/klientApiCalls'
 import KlientDetailData from "./KlientDetailData";
+import {withTranslation} from "react-i18next";
 
 
 
@@ -55,6 +56,7 @@ class KlientDetails extends React.Component {
         this.fetchKlientDetails()
     }
     render() {
+        const {t} = this.props;
         const {klient,error,isLoaded,message} = this.state
         let content;
         if(error){
@@ -68,12 +70,12 @@ class KlientDetails extends React.Component {
             content =<KlientDetailData klientData={klient}/>
         }
         return(<main>
-            <h2>Szegoly klienta</h2>
+            <h2>{t('klient.list.detailsTitle')}</h2>
             {content}
             <div className="section-buttons">
-                <Link to="/klients" className="form-button-cancel">Powrot</Link>
+                <Link to="/klients" className="form-button-cancel">{t('form.actions.return')}</Link>
             </div>
         </main>)
     }
 }
-export default KlientDetails
+export default withTranslation() (KlientDetails)

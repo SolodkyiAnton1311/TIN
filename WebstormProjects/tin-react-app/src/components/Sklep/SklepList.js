@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 
 import SklepListTable from "./SklepListTable";
 import {getSklepApiCalls} from "../../apiCalls/sklepApiCalls";
+import {withTranslation} from "react-i18next";
 
 class SklepList extends React.Component {
     constructor(props) {
@@ -48,13 +49,13 @@ class SklepList extends React.Component {
         } else {
             content = <SklepListTable sklepList={skleps} />
         }
-
+        const {t} = this.props;
         return (
             <main>
-                <h2>Lista klientow</h2>
+                <h2>{t('shop.fields.list.pageTitle')}</h2>
                 {content}
                 <p className="section-buttons">
-                    <Link to="/skleps/add" className="button-add">Dodaj nowego Sklepa</Link>
+                    <Link to="/skleps/add" className="button-add">{t('shop.fields.list.addNew')}</Link>
                 </p>
             </main>
         )
@@ -62,4 +63,4 @@ class SklepList extends React.Component {
 }
 
 
-export default SklepList
+export default withTranslation() (SklepList)

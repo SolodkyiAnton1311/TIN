@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getKlientByIdApiCall } from '../../apiCalls/klientApiCalls'
+
 import SklepDetailsData from "./SklepDetailsData";
 import {getSklepByIdApiCall} from "../../apiCalls/sklepApiCalls";
+import {withTranslation} from "react-i18next";
 
 
 
@@ -76,4 +77,4 @@ class SklepDetails extends React.Component {
         </main>)
     }
 }
-export default SklepDetails
+export default withTranslation() (SklepDetails)
