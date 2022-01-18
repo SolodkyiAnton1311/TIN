@@ -1,31 +1,79 @@
-import React from 'react'
-import { Link, useParams } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { getKlientByIdApiCall } from '../../apiCalls/klientApiCalls'
+import KlientDetailData from "./KlientDetailData";
 
-function KlientDetails() {
-    let { klientId: klientId } = useParams()
-    klientId = parseInt(klientId)
-    const klient = getKlientByIdApiCall(klientId)
 
-    return (
-        <main>
-            <h2>Szczegóły pracownika</h2>
-            <p>Imię: {klient.firstName}</p>
-            <p>Nazwisko: {klient.lastName} </p>
-            <p>Wiek: {klient.wiek} </p>
-            <p>Plec: {klient.plec} </p>
-            <table className="table-list">
-                <thead>
-                <tr>
-                </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+
+
+
+class KlientDetails extends React.Component {
+    constructor(props) {
+        super(props)
+        let { klientId } = props.match.params
+        this.state = {
+            klientId: klientId,
+
+            error: null,
+            isLoaded: false,
+            message:null
+        }
+    }
+
+    fetchKlientDetails = () =>{
+        getKlientByIdApiCall(this.state.klientId)
+            .then(res=>res.json())
+            .then(
+                (data)=>{
+                    if (data.message)
+                    {
+                        this.setState(
+                            {
+                                klient:null,
+                                message:data.message
+                            }
+                        )
+                    }else {
+                        this.setState({
+                            klient:data,
+                            message:null
+                        })
+                    }
+                    this.setState({
+                        isLoaded:true,
+                    })
+                },
+                (error) =>{
+                    this.setState({
+                        isLoaded:true,
+                        error
+                    })
+                }
+            )
+    }
+    componentDidMount() {
+        this.fetchKlientDetails()
+    }
+    render() {
+        const {klient,error,isLoaded,message} = this.state
+        let content;
+        if(error){
+            content=<p>Blad:{error.message}</p>
+        }else if (!isLoaded)
+        {
+            content=<p>Ladowanie danych klienta</p>
+        } else if (message){
+            content = <p>{message}</p>
+        }else {
+            content =<KlientDetailData klientData={klient}/>
+        }
+        return(<main>
+            <h2>Szegoly klienta</h2>
+            {content}
             <div className="section-buttons">
-                <Link to="/klients" className="button-back">Powrót</Link>
+                <Link to="/klients" className="form-button-cancel">Powrot</Link>
             </div>
-        </main>
-    )
+        </main>)
+    }
 }
 export default KlientDetails

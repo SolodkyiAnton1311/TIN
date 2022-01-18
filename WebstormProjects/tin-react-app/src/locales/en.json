@@ -1,0 +1,94 @@
+{
+	"main-page": {
+		"content": "Welcome to the website of the Truskawka store, here you can see who and where was buying products in the Truskawka store!"
+	},
+	"nav": {
+		"main-page": "Main page",
+		"employees": "Clients",
+		"departments": "Market",
+		"employments": "Shopping"
+	},
+	"list": {
+		"actions": {
+			"title": "Actions",
+			"details": "Details",
+			"edit": "Edit",
+			"delete": "Delete"
+		},
+		"form": {
+			"cancel": "list.form.cancel"
+		}
+	},
+	"form": {
+		"actions": {
+			"return": "Return",
+			"edit": "Edit",
+			"cancel": "Cancel"
+		},
+		"action": {
+			"return": "form.action.return"
+		}
+	},
+	"klient": {
+		"fields": {
+			"firstName": "Firstname",
+			"lastName": "Lastname",
+			"Age": "Age",
+			"Sex": "Sex",
+			"title": "Clients"
+		},
+		"list": {
+			"title": "Clients",
+			"addNew": "Add new client",
+			"pageTitle": "List clients",
+			"editTitle": "Edit clients",
+			"detailsTitle": "Details clients"
+		},
+		"form": {
+			"employment": "Historia zatrudnienia",
+			"add": {
+				"pageTitle": "Dodawanie pracownika",
+				"btnLabel": "Dodaj pracownika"
+			},
+			"edit": {
+				"pageTitle": "Edit client",
+				"btnLabel": "apply"
+			},
+			"cancel": "cancel"
+		}
+	},
+	"shop": {
+		"fields": {
+			"adres": "Street",
+			"data": "Date of Open",
+			"list": {
+				"title": "Shops",
+				"addNew": "Add new Shop",
+				"pageTitle": "List of Shops",
+				"editTitle": "Edit Shop",
+				"detailsTitle": "Details Shop"
+			}
+		}
+	},
+	"zakupy": {
+		"fields": {
+			"firstName": "Firstname",
+			"lastName": "Lastname",
+			"adres": "Street",
+			"straczonasumma": "Spent money",
+			"dataLast": "Date of last vizit",
+			"dateNext": "Date of next vizit",
+			"market": "Market",
+			"chooseMarket": "Choose Market",
+			"chooseClient": "Choose Client",
+			"client": "Client",
+			"list": {
+				"title": "Shopping",
+				"addNew": "Add new Shopping",
+				"pageTitle": "List of Shopping",
+				"editTitle": "Edit Shopping",
+				"detailsTitle": "Details Shopping"
+			}
+		}
+	}
+}

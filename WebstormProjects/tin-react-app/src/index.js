@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-
+import App from './app';
+import {initReactI18next} from "react-i18next";
 
 ReactDOM.render(
   <React.StrictMode>

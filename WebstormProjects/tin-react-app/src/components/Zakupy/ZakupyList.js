@@ -1,49 +1,65 @@
-import React from 'react'
-import {Link} from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 import {getZakupyApiCall} from "../../apiCalls/zakupyApiCalls";
-import {getFormattedDate} from "../../helper/dateHelper";
-const zakupy = getZakupyApiCall();
-function ZakupyList() {
-    return (
-        <main>
-            <h2>
-                Lista Zakupów
-            </h2>
-            <table className="tabele-list">
-                <tr>
-                    <th>Imie klienta</th>
-                    <th>Adres Sklepa</th>
-                    <th>Data Ostatniego wizytu</th>
-                    <th>Data Następnego wizytu</th>
-                    <th>Straczona summa</th>
-                    <th>Akcje</th>
-                </tr>
-                <tbody>
-                {zakupy.map(zakupy=>(
-                    <tr key={zakupy._id}>
-                        <td>{zakupy.Klient.firstName + " " + zakupy.Klient.lastName}</td>
-                        <td>{zakupy.Sklep.adres}</td>
-                        <td>{zakupy.dateFrom? getFormattedDate(zakupy.dateTo) : ""}</td>
-                        <td>{zakupy.dateTo? getFormattedDate(zakupy.dateTo) : ""}</td>
-                        <td>{zakupy.straczona}</td>
+import ZakupyListTable from "./ZakupyListTable";
 
-                        <td>
-                            <ul className="list-actions">
-                                <li><Link to={'zakups/details/'+zakupy._id} className="list-actions-button-details">Szczególy</Link></li>
-                                <li><Link to={'zakups/edit/'+zakupy._id} className="list-actions-button-edit">Edit</Link></li>
-                                <li><Link to={'zakups/delete/'+zakupy._id} className="list-actions-button-delete">Usuń</Link></li>
-                            </ul>
-                        </td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
-            <p className="section-buttons">
-                <Link to="/zakups/add" class="button-add">Dodaj nowe zakupy</Link>
-            </p>
-        </main>
 
-    )
+class ZakupyList extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            error: null,
+            isLoaded: false,
+            zakupy: []
+        }
+    }
+
+    componentDidMount() {
+        this.fetchZakupyList()
+    }
+
+    fetchZakupyList = () => {
+        getZakupyApiCall()
+            .then(res => res.json())
+            .then(
+                (data) => {
+                    this.setState({
+                        isLoaded: true,
+                        zakupy: data
+                    });
+                },
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
+                }
+            )
+    }
+
+    render() {
+        const { error, isLoaded, zakupy: zakupy } = this.state
+        let content;
+
+        if (error) {
+            content = <p>Błąd: {error.message}</p>
+        } else if (!isLoaded) {
+            content = <p>Ładowanie danych zatrudnień...</p>
+        } else {
+            content = <ZakupyListTable zakupyList={zakupy} />
+        }
+
+        return (
+            <main>
+                <h2>Lista Zakupów</h2>
+                {content}
+                <p className="section-buttons">
+                    <Link to="/zakups/add" className="button-add">Dodaj nowe Zakupy</Link>
+                </p>
+            </main>
+        )
+    }
 }
 
 export default ZakupyList
+

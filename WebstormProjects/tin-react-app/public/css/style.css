@@ -210,111 +210,194 @@ textarea
 .form select,
 .form input[type="text"],
 .form input[type="number"],
-.form input[type="date"]
-{
+.form input[type="date"],
+.form input[type="email"] {
     border: 1px solid #7f8c8d;
     color: #2c3e50;
     border-radius: 5px;
     padding: 0.5rem;
     width: 100%;
 }
-.form label
-{
+
+.form label {
     display: block;
     margin-top: 1rem;
-    margin-bottom:  0.5rem;
-
+    margin-bottom: 0.5em;
 }
-.error-text,
-.symbol-required
-{
+
+.symbol-required {
     color: #c0392b;
 }
 
-.form-buttons
-{
+.form-buttons {
     margin-top: 2rem;
+    grid-column: 1 / span 2;
 }
+
+.list-actions-button-details,
+.list-actions-button-edit,
+.list-actions-button-delete,
+.button-add,
 .form-button-submit,
-.form-button-cancel
-{
+.form-button-cancel {
+    border: none;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+.button-add,
+.form-button-submit,
+.form-button-cancel {
+    padding: 0.5rem 1rem;
+}
+
+.button-add,
+.form-button-submit {
+    background-color: #27ae60;
+}
+
+.button-add:hover,
+.form-button-submit:hover {
+    background-color: #2ecc71;
+}
+
+.form-button-cancel,
+.list-actions-button-delete {
+    background-color: #c0392b;
+}
+
+.form-button-cancel:hover,
+.list-actions-button-delete:hover {
+    background-color: #e74c3c;
+}
+
+.form-button-submit,
+.form-button-cancel {
+    width: 100%;
+}
+
+.form-button-cancel {
     box-sizing: border-box;
     display: block;
 }
-.error-text{
+
+.form-button-submit {
+    margin-bottom: 0.5rem;
+}
+
+
+.form input.error-input,
+.form select.error-input {
+    border: 3px solid #e74c3c
+}
+
+.errors-text {
     display: block;
-    font-size: 0.85rem;
-    line-height: 2.25;
+    font-size: 0.85em;
+    line-height: 2.25rem;
     margin-top: 0.5em;
     color: #e74c3c;
 }
-.form-button-submit
-{
-    margin-bottom: 0.5rem;
-}
-.form{
-    display: grid;
-    grid-template-columns: 150px 300px 1fr;
-    row-gap: 1rem;
-}
-.form-buttons
-{
-    grid-column: 1/span2;
-}
-@media all and (max-width: 720px) {
-header
-{
-    flex-direction: column;
 
+.errors-text,
+.symbol-required {
+    color: #c0392b;
 }
-    header h1{
+
+body {
+    min-width: 360px;
+}
+
+@media all and (max-width: 720px) {
+    header {
+        flex-direction: column;
+    }
+
+    header h1 {
         text-align: center;
     }
-    header img
-    {
+
+    header img {
         align-self: center;
     }
-    nav ul{
+
+    nav ul {
         flex-wrap: wrap;
     }
-    nav ul li{
+
+    nav ul li {
         flex-basis: 50%;
         text-align: center;
     }
-    nav ul li a{
-       display: block;
+
+    nav ul li a {
+        display: block;
     }
-    .form
-    {
+
+    .form {
         grid-template-columns: 1fr;
         row-gap: unset;
         margin-left: unset;
     }
-    .form-buttons
-    {
-        grid-column: 1/1;
+
+    .form-buttons {
+        grid-column: 1 / 1;
+    }
+
+    .table-list tr {
+        display: block;
+        float: left;
+    }
+
+    .table-list th,
+    td {
+        display: block;
+    }
+
+    .table-list thead, tbody {
+        display: grid;
     }
 }
+
 @media all and (max-width: 400px) {
+
     body,
     nav,
     nav ul,
     header,
     main,
-    footer
-    {
+    footer {
         margin: 0;
     }
-    nav ul li{
-        flex-basis: 100%;
+
+    .table-list {
+        overflow: hidden;
+        table-layout: fixed;
+        max-width: 400px;
+    }
+
+    main {
+        overflow: hidden;
+    }
+
+    nav ul {
+        flex-wrap: wrap;
+    }
+
+    nav ul li {
+        flex-basis: 100%
+    }
+
+    .table-list tr {
+        display: block;
+        float: left;
+    }
+
+    .table-list th,
+    td {
+        display: block;
     }
 }
-
-
-
-
-
-
-
-
-

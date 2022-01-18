@@ -1,46 +1,67 @@
 import React from 'react'
 import {Link} from "react-router-dom";
 import {getKlientApiCall} from "../../apiCalls/klientApiCalls";
-const klientList = getKlientApiCall();
-function KlientList() {
-    return (
-        <main>
+import KlientListTable from "./KlientListTable";
 
-            <h2>
-               Lista Klientów
-            </h2>
-            <table className="tabele-list">
-                    <tr>
-                        <th>Imie</th>
-                        <th>Nazwisko</th>
-                        <th>Wiek</th>
-                        <th>Plec</th>
-                        <th>Akcje</th>
-                    </tr>
-                <tbody>
-                {klientList.map(klient=>(
-                    <tr key={klient._id}>
-                        <td>{klient.firstName}</td>
-                        <td>{klient.lastName}</td>
-                        <td>{klient.wiek}</td>
-                        <td>{klient.plec}</td>
-                        <td>
-                            <ul className="list-actions">
-                                <li><Link to={'klients/details/'+klient._id} className="list-actions-button-details">Szczególy</Link></li>
-                                <li><Link to={'klients/edit/'+klient._id} className="list-actions-button-edit">Edit</Link></li>
-                                <li><Link to={'klients/delete/'+klient._id} className="list-actions-button-delete">Usuń</Link></li>
-                            </ul>
-                        </td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
-            <p className="section-buttons">
-                <Link to="/klients/add" class="button-add">Dodaj nowego pracownika</Link>
-            </p>
-        </main>
+class KlientList extends React.Component {
 
-    )
+    constructor(props) {
+        super(props)
+        this.state = {
+            error: null,
+            isLoaded: false,
+            klients: [],
+            notice:this.notice
+        }
+    }
+
+    componentDidMount() {
+        this.fetchKlientList()
+
+    }
+
+    fetchKlientList = () => {
+        getKlientApiCall()
+            .then(res => res.json())
+            .then(
+                (data) => {
+                    this.setState({
+                        isLoaded: true,
+                        klients: data
+                    });
+                },
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    })
+                }
+            )
+    }
+
+    render() {
+        const { error, isLoaded, klients } = this.state
+        let content;
+
+        if (error) {
+            content = <p>Błąd: {error.message}</p>
+        } else if (!isLoaded) {
+            content = <p>Ładowanie danych klientow...</p>
+        } else {
+            content = <KlientListTable klientList={klients} />
+        }
+
+        return (
+            <main>
+                <h2>Lista klientow</h2>
+                {content}
+                <p className="section-buttons">
+                    <Link to="/klients/add" className="button-add">Dodaj nowego Klienta</Link>
+                </p>
+            </main>
+        )
+    }
 }
+
 
 export default KlientList
