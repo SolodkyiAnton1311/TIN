@@ -1,4 +1,6 @@
 const ZakupyRepository = require('../repository/mysql2/ZakupyRepository');
+const KlientRepositoru = require('../repository/mysql2/KlientRepository');
+const SklepRepositoru = require('../repository/mysql2/SklepRepository');
 
 exports.getZakupy = (reg, res, next) => {
     ZakupyRepository.getZakupy()
@@ -11,20 +13,29 @@ exports.getZakupy = (reg, res, next) => {
 };
 exports.getZakupyById = (req, res, next) => {
     const empId = req.params.zakupyId;
-    ZakupyRepository.getZakupyById(empId)
-        .then(emp => {
+    let klients,skleps;
+    KlientRepositoru.getKlients().then(klient =>{
+        klients=klient;
+        return SklepRepositoru.getSklep()
+    }).then(skep=>{
+        skleps = skep;
+        return   ZakupyRepository.getZakupyById(empId)
+    }).then(emp => {
             if (!emp) {
                 res.status(404).json({
                     message: 'Employee with id: ' + empId + ' not found'
                 })
             } else {
+                emp.allSkleps = skleps;
+                emp.allKlients = klients;
+                console.log(emp)
                 res.status(200).json(emp);
             }
         });
 };
 exports.createZakupy = (req, res, next) => {
     ZakupyRepository.createZakupy(req.body)
-        .then(newobj => {
+        .then(newObj => {
             res.status(201).json(newObj);
         })
         .catch(err => {

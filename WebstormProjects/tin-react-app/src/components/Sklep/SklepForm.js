@@ -9,6 +9,7 @@ import {
 } from "../../apiCalls/sklepApiCalls";
 import {checkRequired, checkTextLengthRange} from "../../helper/validationCommon";
 import {withTranslation} from "react-i18next";
+import {getFormattedDate} from "../../helper/dateHelper";
 
 class SklepForm extends React.Component {
     constructor(props) {
@@ -16,7 +17,7 @@ class SklepForm extends React.Component {
         const paramsSklepId = props.match.params.sklepId;
         const currentFormMode = paramsSklepId ? formMode.EDIT : formMode.NEW
         this.state = {
-
+            paramsSklepId:paramsSklepId,
             sklep: {
 
                 Adresa: '',
@@ -35,7 +36,7 @@ class SklepForm extends React.Component {
         }
     }
     fetchSklepDetails = () => {
-        getSklepByIdApiCall(this.state.id_sklep)
+        getSklepByIdApiCall(this.state.paramsSklepId)
             .then(res => res.json())
             .then(k => {
 
@@ -132,7 +133,6 @@ class SklepForm extends React.Component {
         const pageTitle = this.state.formMode === formMode.NEW ? t('shop.fields.list.addNew') : t('shop.fields.list.editTitle')
 
         const globalErrorMessage = errorsSummary || fetchError || this.state.message
-
         return (
             <main>
                 <h2>{pageTitle}</h2>
@@ -141,22 +141,22 @@ class SklepForm extends React.Component {
                         type="text"
                         label={t('shop.fields.adres')}
                         required
-                        error={this.state.errors.Adresa}
+                        error={this.state.errors.adres}
                         name="Adresa"
                         placeholder="2-60 znaków"
                         onChange={this.handleChange}
-                        defaultValue={this.state.sklep.Adresa}
+                        value={this.state.sklep.adres}
                     />
 
                     <FormInput
                         type="date"
                         label={t('shop.fields.data')}
                         required
-                        error={this.state.errors.Data_otwarcia}
+                        error={this.state.errors.date}
                         name="Data_otwarcia"
                         placeholder="2-60 znaków"
                         onChange={this.handleChange}
-                        defaultValue={this.state.sklep.Data_otwarcia}
+                        value={this.state.sklep.date?getFormattedDate(this.state.sklep.date) : ""}
                     />
 
                     <FormButtons

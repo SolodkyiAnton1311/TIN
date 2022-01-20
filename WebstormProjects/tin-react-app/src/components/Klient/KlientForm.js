@@ -14,20 +14,22 @@ class KlientForm extends React.Component {
       const paramsKlientId = props.match.params.klientId;
         const currentFormMode = paramsKlientId ? formMode.EDIT : formMode.NEW
         this.state = {
-
+            paramsKlientId:paramsKlientId,
             klient: {
 
                 Imie: '',
                 Nazwisko: '',
-                Plec: '',
-                Wiek: ''
+                Wiek: '',
+                Plec: ''
+
 
             },
             errors: {
                 Imie: '',
                 Nazwisko: '',
-                Plec: '',
-                Wiek: ''
+                Wiek: '',
+                Plec: ''
+
 
             },
             formMode: currentFormMode,
@@ -37,7 +39,7 @@ class KlientForm extends React.Component {
         }
     }
     fetchKlientDetails = () => {
-        getKlientByIdApiCall(this.state.id_klient)
+        getKlientByIdApiCall(this.state.paramsKlientId)
             .then(res => res.json())
             .then(k => {
 
@@ -54,7 +56,6 @@ class KlientForm extends React.Component {
                         this.setState({
 
                             klient: data,
-
                             message: null
                         })
                     }
@@ -144,7 +145,7 @@ class KlientForm extends React.Component {
         const pageTitle = this.state.formMode === formMode.NEW ? t('klient.form.add.btnLabel') : t('klient.form.edit.pageTitle')
 
         const globalErrorMessage = errorsSummary || fetchError || this.state.message
-
+        console.log(this.state.klient.Nazwisko)
         return (
             <main>
                 <h2>{pageTitle}</h2>
@@ -157,7 +158,7 @@ class KlientForm extends React.Component {
                         name="Imie"
                         placeholder="2-60 znaków"
                         onChange={this.handleChange}
-                        defaultValue={this.state.klient.Imie}
+                        value={this.state.klient.Imie}
                     />
 
                     <FormInput
@@ -168,7 +169,7 @@ class KlientForm extends React.Component {
                         name="Nazwisko"
                         placeholder="2-60 znaków"
                         onChange={this.handleChange}
-                        defaultValue={this.state.klient.Nazwisko}
+                        value={this.state.klient.Nazwisko}
                     />
 
                     <FormInput
@@ -178,7 +179,7 @@ class KlientForm extends React.Component {
                         error={this.state.errors.Wiek}
                         name="Wiek"
                         onChange={this.handleChange}
-                        defaultValue={this.state.klient.Wiek}
+                        value={this.state.klient.Wiek}
                     />
 
                     <FormInput
@@ -188,7 +189,7 @@ class KlientForm extends React.Component {
                         error={this.state.errors.Plec}
                         name="Plec"
                         onChange={this.handleChange}
-                        defaultValue={this.state.klient.Plec}
+                        value={this.state.klient.Plec}
                     />
 
                     <FormButtons

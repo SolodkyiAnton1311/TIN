@@ -2,15 +2,15 @@ const db = require('../../config/mysql2/db');
 const klientSchema = require("../../model/joi/Zakupy");
 exports.getZakupy = () =>{
     const query ="SELECT empl.id_sklep_klient AS id_sklep_klient , empl.data_ostatniego_wizutu_klienta,empl.straczona_summa,empl.data_nastepnego_wizytu, dept.id_sklep as id_sklep ,  dept.Adresa,dept.Data_otwarcia, e.id_klient as id_klient, e.imie,e.nazwisko,e.wiek,e.plec     FROM sklep_klient empl     LEFT JOIN Klient e on empl.id_klient = e.id_klient     LEFT JOIN Sklep dept on empl.id_sklep = dept.id_sklep";
-        return db.promise().query(query)
-            .then((results, fields) => {
-                console.log(results[0]);
-                return results[0];
-            })
-            .catch(err => {
-                console.log(err);
-                throw err;
-            });
+    return db.promise().query(query)
+        .then((results, fields) => {
+            console.log(results[0]);
+            return results[0];
+        })
+        .catch(err => {
+            console.log(err);
+            throw err;
+        });
 
 };
 exports.getZakupyById = (zakupyId) =>{
@@ -32,7 +32,9 @@ exports.getZakupyById = (zakupyId) =>{
                 imie: firstRow.imie,
                 nazwisko: firstRow.nazwisko,
                 adres: firstRow.Adresa,
-                klients  : []
+                klients  : [],
+                allKlients:[],
+                allSkleps:[]
             };
             for (let i = 0; i < results[0].length; i++) {
                 const row = results[0][i];

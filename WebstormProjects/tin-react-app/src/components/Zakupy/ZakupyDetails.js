@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { getZakupyByIdApiCall } from '../../apiCalls/zakupyApiCalls';
 import ZakupyDetailData from './ZakupyDetailsData'
+import {withTranslation} from "react-i18next";
 
 class ZakupyDetails extends React.Component {
     constructor(props) {
@@ -60,17 +61,17 @@ class ZakupyDetails extends React.Component {
         } else {
             content = <ZakupyDetailData zakupyData={zakupy} />
         }
-
+        const {t} = this.props;
         return (
             <main>
-                <h2>Szczegóły Zakupów</h2>
+                <h2>{t('zakupy.fields.list.detailsTitle')}</h2>
                 {content}
                 <div className="section-buttons">
-                    <Link to="/zakups" className="form-button-cancel">Powrót</Link>
+                    <Link to="/zakups" className="form-button-cancel">{t('form.actions.return')}</Link>
                 </div>
             </main >
         )
     }
 }
 
-export default ZakupyDetails
+export default withTranslation() (ZakupyDetails)

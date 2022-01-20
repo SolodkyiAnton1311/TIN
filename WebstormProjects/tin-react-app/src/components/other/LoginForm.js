@@ -138,7 +138,7 @@ class LoginForm extends React.Component {
                             error={this.state.errors.password}
                             label="password"
                             onChange={this.handleChange}
-                            type="password"
+                            type="text"
                         />
                         <FormButtons
                             cancelPath={this.state.prevPath}

@@ -70,7 +70,7 @@ app.use('/api/skleps',sklepApiRouter);
 app.use('/api/user',userApiRouter);
 app.use('/api/zakups',zakupyApiRouter);
 app.use('/api/auth',authApiRouter)
-app.use('/klients',authUtils.permitAuthenticatedUser,klientRouter)
+
 
 app.use(function(req, res, next) {
   next(createError(404));

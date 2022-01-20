@@ -24,7 +24,7 @@ exports.getSklepById = (req, res, next) => {
 };
 exports.createSklep = (req, res, next) => {
     SklepRepository.createSklep(req.body)
-        .then(newobj => {
+        .then(newObj => {
             res.status(201).json(newObj);
         })
         .catch(err => {

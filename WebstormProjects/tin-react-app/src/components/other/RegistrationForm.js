@@ -12,7 +12,6 @@ class UserForm extends React.Component {
         this.state = {
 
             user: {
-
                 email:"",
                 password:"",
                 isAdmin:"0"
@@ -85,17 +84,17 @@ class UserForm extends React.Component {
         const {t} = this.props;
         const errorsSummary = this.hasErrors() ? 'Formularz zawiera błędy' : ''
         const fetchError = this.state.error ? `Błąd: ${this.state.error.message}` : ''
-        const pageTitle = "Registration";
+
 
         const globalErrorMessage = errorsSummary || fetchError || this.state.message
 
         return (
             <main>
-                <h2>{pageTitle}</h2>
+                <h2>{t('nav.registration')}</h2>
                 <form className="form" onSubmit={this.handleSubmit}>
                     <FormInput
                         type="text"
-                        label="email"
+                        label="Login"
                         required
                         error={this.state.errors.email}
                         name="email"

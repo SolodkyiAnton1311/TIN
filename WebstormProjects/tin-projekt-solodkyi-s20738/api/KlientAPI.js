@@ -23,7 +23,7 @@ exports.getKlientsById = (req, res, next) => {
 };
 exports.createKlient = (req, res, next) => {
     KlientRepository.createKlient(req.body)
-        .then(newobj => {
+        .then(newObj => {
             res.status(201).json(newObj);
         })
         .catch(err => {
@@ -34,8 +34,8 @@ exports.createKlient = (req, res, next) => {
         });
 };
 exports.updateKlient = (req, res, next) => {
-    const empId = req.params.klientId;
-    KlientRepository.updateKlient(empId, req.body)
+    const klientId = req.params.klientId;
+    KlientRepository.updateKlient(klientId, req.body)
         .then(result => {
             res.status(200).json({
                 message: 'Employee updated!',

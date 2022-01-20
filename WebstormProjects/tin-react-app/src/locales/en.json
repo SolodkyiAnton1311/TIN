@@ -1,7 +1,7 @@
 {
 	"main-page": {
 		"content": "Welcome to the website of the Truskawka store, here you can see who and where was buying products in the Truskawka store!",
-		"loggin": "Loggin"
+		"loggin": "Login"
 	},
 	"nav": {
 		"main-page": "Main page",
@@ -26,9 +26,6 @@
 			"return": "Return",
 			"edit": "Edit",
 			"cancel": "Cancel"
-		},
-		"action": {
-			"return": "form.action.return"
 		}
 	},
 	"klient": {

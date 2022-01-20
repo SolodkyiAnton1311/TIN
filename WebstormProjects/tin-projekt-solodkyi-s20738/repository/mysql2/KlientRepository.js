@@ -1,8 +1,7 @@
 const db = require('../../config/mysql2/db');
 const klientSchema = require('../../model/joi/Klient');
 
-exports.getKlients = () =>{
-    return db.promise().query('SELECT * FROM Klient').then((results,fields) =>
+exports.getKlients = () =>{ return db.promise().query('SELECT * FROM Klient').then((results,fields) =>
 {
     console.log(results[0]);
     return results[0];
@@ -23,29 +22,11 @@ exports.getKlientsById = (klientId) =>{
             }
             const emp = {
                 id: klientId,
-                name: firstRow.imie,
-                lastName: firstRow.nazwisko,
-                wiek: firstRow.wiek,
-                plec: firstRow.plec,
-                klients  : []
+                Imie: firstRow.imie,
+                Nazwisko: firstRow.nazwisko,
+                Wiek: firstRow.wiek,
+                Plec: firstRow.plec,
             };
-            for (let i = 0; i < results[0].length; i++) {
-                const row = results[0][i];
-                if (row.id_klient) {
-                    const zakpy = {
-                        id: row.id_sklep_klient,
-                        date: row.data_ostatniego_wizutu_klienta,
-                        dateNext: row.data_nastepnego_wizytu,
-                        Sklep:{
-                            id: row.id_sklep,
-                            name: row.Adresa,
-                            date:row.Data_otwarcia
-                        }
-                    };
-                    emp.klients.push(zakpy);
-                }
-            }
-
             return emp;
         })
         .catch(err => {
@@ -53,31 +34,25 @@ exports.getKlientsById = (klientId) =>{
             throw err;
         });};
 exports.createKlient = (newKlientData) => {
-    const vRes = klientSchema.validate(newKlientData,{abortEarly:false});
-    if (vRes.error)
-    {
-        return Promise.reject(vRes.error);
-    }
+
 
     const sql = "INSERT INTO Klient ( Imie, Nazwisko, Wiek, Plec) VALUES (?,?,?,?);"
     return  db.promise().execute(sql,[newKlientData.Imie,newKlientData.Nazwisko,newKlientData.Wiek,newKlientData.Plec]);
 
 };
 
-    exports.updateKlient = (klientId,newKlientData)=> {
-        console.log(newKlientData);
-        console.log(klientId);
-        const vRes = klientSchema.validate(newKlientData,{abortEarly:false});
-        if (vRes.error)
-        {
-            return Promise.reject(vRes.error);
-        }
-    const sql = "UPDATE Klient SET Imie = ?, Nazwisko = ?, Wiek = ?, Plec = ? WHERE id_klient = ?;"
-    return   db.promise().execute(sql,[newKlientData.Imie,newKlientData.Nazwisko,newKlientData.Wiek,newKlientData.Plec,klientId]);
+exports.updateKlient = (klientId,newKlientData)=> {
+    console.log(newKlientData);
+    console.log(klientId);
+    const vRes = klientSchema.validate(newKlientData,{abortEarly:false});
+    if (vRes.error)
+    {
+        return Promise.reject(vRes.error);
+    }
+    const sql = "UPDATE Klient SET id_klient=?, Imie = ?, Nazwisko = ?, Wiek = ?, Plec = ? WHERE id_klient = ?;"
+    return   db.promise().execute(sql,[klientId,newKlientData.Imie,newKlientData.Nazwisko,newKlientData.Wiek,newKlientData.Plec,klientId]);
 
 };
-
-
 exports.deleteKlient = (klientId) => {
     const sql = "DELETE FROM Klient WHERE id_klient = ?";
     return db.promise().execute(sql, [klientId]);

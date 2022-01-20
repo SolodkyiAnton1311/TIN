@@ -1,4 +1,4 @@
-import {getCurrentUser} from "../helper/authHelper";
+import {getCurrentUser, userToken} from "../helper/authHelper";
 
 const klientBaseUrl ='http://localhost:3000/api/klients'
 export function getKlientApiCall()
@@ -15,13 +15,8 @@ export function getKlientByIdApiCall(klientId)
 }
 
 export function addKlientApiCall(klient){
-    const user = getCurrentUser()
     const klientString = JSON.stringify(klient)
-    let token
-    if (user && user.token)
-    {
-        token =user.token;
-    }
+    let token = userToken();
     console.log(klientString)
     const options = {
         method: "POST",

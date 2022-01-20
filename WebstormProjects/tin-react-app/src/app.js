@@ -50,7 +50,7 @@ class App extends React.Component{
             <Router>
                 <div>
                     <Header/>
-                    <Navigation handleLogout={this.handleLogout}/>
+                    <Navigation handleLogout={this.handleLogout} Rediret="/"/>
                     <Switch>
                         <Route exact path='/login' render={(props) => (<LoginForm handleLogin={this.handleLogin}/>)}/>
                         <Route exact path="/" component={MainContent}/>

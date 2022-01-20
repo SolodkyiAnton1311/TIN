@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import SklepListTable from "./SklepListTable";
 import {getSklepApiCalls} from "../../apiCalls/sklepApiCalls";
 import {withTranslation} from "react-i18next";
+import {isAdmin, isAuthenticated} from "../../helper/authHelper";
 
 class SklepList extends React.Component {
     constructor(props) {
@@ -51,12 +52,15 @@ class SklepList extends React.Component {
         }
         const {t} = this.props;
         return (
+            isAuthenticated() &&
             <main>
                 <h2>{t('shop.fields.list.pageTitle')}</h2>
                 {content}
+                {isAdmin() === 1 &&
                 <p className="section-buttons">
                     <Link to="/skleps/add" className="button-add">{t('shop.fields.list.addNew')}</Link>
                 </p>
+                }
             </main>
         )
     }

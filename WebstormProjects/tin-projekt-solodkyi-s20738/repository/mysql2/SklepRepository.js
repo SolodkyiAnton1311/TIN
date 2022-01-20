@@ -3,14 +3,14 @@ const klientSchema = require("../../model/joi/Sklep");
 
 exports.getSklep = () =>{
     return db.promise().query('SELECT * FROM Sklep').then((results,fields) =>
-{
-    console.log(results[0]);
-    return results[0];
-})
-    .catch(err => {
-        console.log(err);
-        throw err;
-    });
+    {
+        console.log(results[0]);
+        return results[0];
+    })
+        .catch(err => {
+            console.log(err);
+            throw err;
+        });
 };
 
 exports.getSklepById = (sklepId) =>{
@@ -26,7 +26,6 @@ exports.getSklepById = (sklepId) =>{
                 id: sklepId,
                 adres: firstRow.Adresa,
                 date: firstRow.Data_otwarcia,
-                skleps  : []
             };
             for (let i = 0; i < results[0].length; i++) {
                 const row = results[0][i];

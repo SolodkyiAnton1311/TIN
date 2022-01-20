@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import {getKlientApiCall} from "../../apiCalls/klientApiCalls";
 import KlientListTable from "./KlientListTable";
 import {withTranslation} from 'react-i18next'
+import {isAdmin, isAuthenticated} from "../../helper/authHelper";
 class KlientList extends React.Component {
 
     constructor(props) {
@@ -52,12 +53,15 @@ class KlientList extends React.Component {
         }
         const {t} = this.props;
         return (
+            isAuthenticated() &&
             <main>
                 <h2>{t('klient.list.pageTitle')}</h2>
                 {content}
+                {isAdmin() === 1 &&
                 <p className="section-buttons">
                     <Link to="/klients/add" className="button-add">{t('klient.list.addNew')}</Link>
                 </p>
+                }
             </main>
         )
     }
