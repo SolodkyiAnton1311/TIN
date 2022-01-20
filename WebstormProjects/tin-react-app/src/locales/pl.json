@@ -1,12 +1,14 @@
 {
   "main-page": {
-    "content": "Witamy w na stronie internetowej Śieci sklepow Truskawka!"
+    "content": "Witamy w na stronie internetowej Śieci sklepow Truskawka!",
+    "loggin": "Logowanie"
   },
   "nav": {
     "main-page": "Glówna Strona",
     "employees": "Klienci",
     "departments": "Sklepy",
-    "employments": "Zakupy"
+    "employments": "Zakupy",
+    "registration": "Reestracja"
   },
   "list": {
     "actions": {
@@ -41,12 +43,12 @@
     "form": {
       "employment": "Historia zatrudnienia",
       "add": {
-        "pageTitle": "Dodawanie pracownika",
-        "btnLabel": "Dodaj pracownika"
+        "pageTitle": "Dodaj",
+        "btnLabel": "Dodawanie pracownika"
       },
       "edit": {
         "pageTitle": "Edytuj klienta",
-        "btnLabel": "podtwierdz"
+        "btnLabel": "Edytuj"
       },
       "cancel": "Anuluj"
     }

@@ -126,11 +126,11 @@ class SklepForm extends React.Component {
         }
 
 
-
+        const {t} = this.props;
         const errorsSummary = this.hasErrors() ? 'Formularz zawiera błędy' : ''
         const fetchError = this.state.error ? `Błąd: ${this.state.error.message}` : ''
-        const pageTitle = this.state.formMode === formMode.NEW ? 'Nowy Sklep' : 'Edycja Sklepa'
-        const {t} = this.props;
+        const pageTitle = this.state.formMode === formMode.NEW ? t('shop.fields.list.addNew') : t('shop.fields.list.editTitle')
+
         const globalErrorMessage = errorsSummary || fetchError || this.state.message
 
         return (

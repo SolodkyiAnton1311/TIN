@@ -76,11 +76,8 @@ exports.createKlient = (newKlientData) => {
     return   db.promise().execute(sql,[newKlientData.Imie,newKlientData.Nazwisko,newKlientData.Wiek,newKlientData.Plec,klientId]);
 
 };
-    exports.findByLastName = (Nazwisko) =>
-    {
-        const sql ="SELECT Nazwisko FROM Klient WHERE Nazwisko=?";
-        return db.promise().execute(sql,[Nazwisko])
-    }
+
+
 exports.deleteKlient = (klientId) => {
     const sql = "DELETE FROM Klient WHERE id_klient = ?";
     return db.promise().execute(sql, [klientId]);

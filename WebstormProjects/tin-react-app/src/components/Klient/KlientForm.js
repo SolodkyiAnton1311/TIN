@@ -138,13 +138,13 @@ class KlientForm extends React.Component {
         }
 
 
-
+        const {t} = this.props;
         const errorsSummary = this.hasErrors() ? 'Formularz zawiera błędy' : ''
         const fetchError = this.state.error ? `Błąd: ${this.state.error.message}` : ''
-        const pageTitle = this.state.formMode === formMode.NEW ? 'Nowy Klient' : 'Edycja Klienta'
+        const pageTitle = this.state.formMode === formMode.NEW ? t('klient.form.add.btnLabel') : t('klient.form.edit.pageTitle')
 
         const globalErrorMessage = errorsSummary || fetchError || this.state.message
-        const {t} = this.props;
+
         return (
             <main>
                 <h2>{pageTitle}</h2>

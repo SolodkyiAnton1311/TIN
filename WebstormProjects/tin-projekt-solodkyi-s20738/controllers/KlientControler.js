@@ -70,9 +70,6 @@ exports.addKlient =(req, res, next) => {
 exports.updateKlient =(req, res, next) => {
     const klientId = req.body.klientId;
     const klientData ={...req.body};
-    console.log(klientId);
-    console.log(klientData);
-
     KlientRepository.updateKlient(klientId,klientData).then(result =>{
         res.redirect('/klients');
     }).catch(err =>{

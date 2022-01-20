@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-const session = require('express-session')
+
 
 var indexRouter = require('./routes/index');
 var klientRouter = require('./routes/klientRouter');
@@ -12,10 +12,13 @@ var sklepRouter = require('./routes/sklepRouter');
 var zakupyRouter = require('./routes/zakupyRouter');
 const klientApiRouter = require('./routes/api/KlientApiRoute');
 const sklepApiRouter = require('./routes/api/SklepApiRoute');
+const userApiRouter = require('./routes/api/UserApiRoute');
+const authUtils = require('./util/authUtils');
 const zakupyApiRouter = require('./routes/api/ZakupyApiRepository');
-
-
+const cors = require('cors');
+const session = require('express-session')
 var app = express();
+const authApiRouter = require('./routes/api/AuthApiRoute')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -27,6 +30,7 @@ app.use(session({
   secret:'my_secret_password',
   resave: false
 }));
+
 app.use((req,res,next) =>
 {
   const  loggedUser = req.session.loggedUser;
@@ -53,6 +57,7 @@ app.use((req, res, next) => {
   }
   next();
 });
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -62,7 +67,10 @@ app.use('/skleps', sklepRouter);
 app.use('/zakups', zakupyRouter);
 app.use('/api/klients',klientApiRouter);
 app.use('/api/skleps',sklepApiRouter);
+app.use('/api/user',userApiRouter);
 app.use('/api/zakups',zakupyApiRouter);
+app.use('/api/auth',authApiRouter)
+app.use('/klients',authUtils.permitAuthenticatedUser,klientRouter)
 
 app.use(function(req, res, next) {
   next(createError(404));
@@ -70,7 +78,7 @@ app.use(function(req, res, next) {
 
 app.use(function(err, req, res, next) {
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.error = req.app.get('env') === 'skleps' ? err : {};
   // render the error page
   res.status(err.status || 500);
   res.render('error');

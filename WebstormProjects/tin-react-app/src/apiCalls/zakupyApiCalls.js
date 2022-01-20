@@ -1,4 +1,4 @@
-import {ZakupyList,ZakupyDetails} from './zakupyApiMockData'
+
 const zakupyBaseUrl ='http://localhost:3000/api/zakups'
 export function getZakupyApiCall()
 {

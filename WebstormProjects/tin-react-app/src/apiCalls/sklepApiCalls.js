@@ -1,4 +1,4 @@
-import {sklepDetailList, sklepList} from "./sklepApiMockData";
+
 const sklepBaseUrl ='http://localhost:3000/api/skleps'
 export function getSklepApiCalls()
 {

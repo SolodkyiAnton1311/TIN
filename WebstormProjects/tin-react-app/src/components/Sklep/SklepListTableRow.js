@@ -2,6 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import {getFormattedDate} from "../../helper/dateHelper";
 import {withTranslation} from "react-i18next";
+import {isAuthenticated} from "../../helper/authHelper";
 
 function SklepListTableRow(props) {
     const skleps = props.sklepData
@@ -10,6 +11,7 @@ function SklepListTableRow(props) {
         <tr>
             <td>{skleps.Adresa}</td>
             <td>{skleps.Data_otwarcia?getFormattedDate(skleps.Data_otwarcia) : ""}</td>
+            {isAuthenticated() &&
             <td>
                 <ul className="list-actions">
                     <li><Link to={'skleps/details/' + skleps.id_sklep} className="list-actions-button-details">{t('list.actions.details')}</Link></li>
@@ -18,6 +20,7 @@ function SklepListTableRow(props) {
                     </li>
                 </ul>
             </td>
+                }
         </tr>
     )
 }
