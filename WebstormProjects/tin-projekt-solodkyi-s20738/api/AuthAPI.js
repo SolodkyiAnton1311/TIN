@@ -11,9 +11,7 @@ exports.login = (req,res) => {
             return res.status(401).send({message:"Nie prawidlowy email"})
         }
         bcrypt.compare(password,user.password).then(isEqual =>{
-            console.log(password)
-            console.log(user.password)
-            if(password !== user.password)
+            if(!isEqual)
             {
                 return res.status(401).send({message:"Nieprawidlowe haslo!"})
             }

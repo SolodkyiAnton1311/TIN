@@ -1,6 +1,6 @@
 const UserRepository = require("../repository/mysql2/UserRepository");
 const authUntil = require("../util/authUtils");
-const createUser = require("../api/userApi");
+
 
 
 exports.login =(req,res,next) =>{

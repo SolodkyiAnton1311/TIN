@@ -14,7 +14,7 @@ exports.deleteUser = (userId) => {
     return db.promise().execute(sql, [userId]);
 }
 exports.createUser = (user) => {
-    const passHash = authUntil.hashPassword('12345')
+    const passHash = authUntil.hashPassword(user.password)
     const sql = "INSERT INTO UserPass ( email, password,isAdmin) VALUES (?,?,?);"
     return  db.promise().execute(sql,[user.email,passHash,user.isAdmin]);
 };
