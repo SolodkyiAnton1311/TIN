@@ -1,5 +1,5 @@
 const db = require("../../config/mysql2/db");
-const klientSchema = require("../../model/joi/Sklep");
+const authUntil = require('../../util/authUtils')
 exports.findByEmail = (Email) =>
 {
     const sql ="SELECT * FROM UserPass WHERE email = ?";
@@ -14,6 +14,7 @@ exports.deleteUser = (userId) => {
     return db.promise().execute(sql, [userId]);
 }
 exports.createUser = (user) => {
+    const passHash = authUntil.hashPassword('12345')
     const sql = "INSERT INTO UserPass ( email, password,isAdmin) VALUES (?,?,?);"
-    return  db.promise().execute(sql,[user.email,user.password,user.isAdmin]);
+    return  db.promise().execute(sql,[user.email,passHash,user.isAdmin]);
 };

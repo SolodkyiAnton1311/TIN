@@ -15,12 +15,11 @@ exports.login =(req,res,next) =>{
                 navLocation:'',
                 loginError:"Nie prawidlowy email"
             })
-        } else if (user.password === password){
+        }
+            else if (authUntil.comparePasswords(password,user.password) === true)
+        {
             req.session.loggedUser = user;
             res.redirect('/');
-        }else if (authUntil.comparePasswords(password,user.password) === true)
-        {
-
         }
         else {
             res.render('index',{
