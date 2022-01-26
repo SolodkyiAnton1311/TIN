@@ -15,6 +15,7 @@ class SklepForm extends React.Component {
     constructor(props) {
         super(props);
         const paramsSklepId = props.match.params.sklepId;
+        console.log(props.match.params.sklepId)
         const currentFormMode = paramsSklepId ? formMode.EDIT : formMode.NEW
         this.state = {
             paramsSklepId:paramsSklepId,

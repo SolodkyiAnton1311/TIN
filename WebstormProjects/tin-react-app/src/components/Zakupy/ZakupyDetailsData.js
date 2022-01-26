@@ -1,5 +1,6 @@
 import React from "react";
 import {getFormattedDate} from "../../helper/dateHelper";
+import {withTranslation} from "react-i18next";
 
 function ZakupyDetailData(props)
 {
@@ -14,4 +15,4 @@ function ZakupyDetailData(props)
         </React.Fragment>
     )
 }
-export default ZakupyDetailData
+export default withTranslation() (ZakupyDetailData)

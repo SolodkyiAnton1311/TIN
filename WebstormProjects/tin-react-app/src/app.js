@@ -21,6 +21,7 @@ import KlientDetails from "./components/Klient/KlientDetails";
 import SklepDetails from "./components/Sklep/SklepDetails";
 import KlientForm from "./components/Klient/KlientForm";
 import KlientDelete from "./components/Klient/KlientDelete";
+import ZakupyDelete from "./components/Zakupy/ZakupyDelete";
 import {getCurrentUser} from "./helper/authHelper";
 import LoginForm from "./components/other/LoginForm";
 
@@ -61,6 +62,7 @@ class App extends React.Component{
                         <Route exact path="/zakups/edit/:zakupyId" component={ZakupyForm}/>
                         <Route exact path="/skleps/edit/:sklepId" component={SklepForm}/>
                         <Route exact path="/skleps/delete/:sklepId" component={SklepDelete}/>
+                        <Route exact path="/zakups/delete/:zakupyId" component={ZakupyDelete}/>
                         <Route exact path="/skleps/add" component={SklepForm}/>
                         <Route exact path="/klients/add" component={KlientForm}/>
                         <Route exact path="/klients/edit/:klientId" component={KlientForm}/>

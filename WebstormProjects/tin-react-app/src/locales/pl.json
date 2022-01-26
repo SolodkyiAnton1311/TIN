@@ -15,7 +15,8 @@
       "title": "Akcje",
       "details": "Szególy",
       "edit": "Edycja",
-      "delete": "Usuń"
+      "delete": "Usuń",
+      "password":"Hasło"
     }
   },
   "form": {

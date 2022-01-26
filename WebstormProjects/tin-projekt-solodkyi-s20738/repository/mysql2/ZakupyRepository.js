@@ -32,25 +32,9 @@ exports.getZakupyById = (zakupyId) =>{
                 imie: firstRow.imie,
                 nazwisko: firstRow.nazwisko,
                 adres: firstRow.Adresa,
-                klients  : [],
                 allKlients:[],
                 allSkleps:[]
             };
-            for (let i = 0; i < results[0].length; i++) {
-                const row = results[0][i];
-                if (row.id_klient) {
-                    const zakpy = {
-                        id: row.id_klient,
-                        Imie:row.imie,
-                        Nazwisko:row.nazwisko,
-                        id_sklep:row.id_sklep,
-                        adres: row.adres
-
-                    };
-                    emp.klients.push(zakpy);
-                }
-            }
-
             return emp;
         })
         .catch(err => {
@@ -59,11 +43,12 @@ exports.getZakupyById = (zakupyId) =>{
         });
 };
 exports.createZakupy = (newZakupyData) => {
-    const vRes = klientSchema.validate(newZakupyData,{abortEarly:false});
-    if (vRes.error)
-    {
-        return Promise.reject(vRes.error);
-    }
+    //const vRes = klientSchema.validate(newZakupyData,{abortEarly:false});
+    //if (vRes.error)
+    //{
+    //    return Promise.reject(vRes.error);
+    //}
+    console.log(newZakupyData)
     const DataVizytu = newZakupyData.DataVizytu;
     const DataNastepnego = newZakupyData.DataNastepnego;
     const straczona_summa = newZakupyData.straczona_summa;
@@ -72,11 +57,22 @@ exports.createZakupy = (newZakupyData) => {
 };
 
 exports.updateZakupy = (zakupyId,zakupyData)=> {
-    const vRes = klientSchema.validate(zakupyData,{abortEarly:false});
-    if (vRes.error)
-    {
-        return Promise.reject(vRes.error);
-    }
+   //const vRes = klientSchema.validate(zakupyData,{abortEarly:false});
+   //if (vRes.error)
+   //{
+   //    return Promise.reject(vRes.error);
+   //}
+    var date = new Date(zakupyData.DataVizytu),
+        mnth = ("0" + (date.getMonth()+1)).slice(-2),
+        day = ("0" + (date.getDate()+1)).slice(-2);
+    zakupyData.DataVizytu = [date.getFullYear(), mnth, day].join("-");
+    var date2 = new Date(zakupyData.DataNastepnego),
+        mnth2 = ("0" + (date2.getMonth()+1)).slice(-2),
+        day2 = ("0" + (date2.getDate()+1)).slice(-2);
+    zakupyData.DataNastepnego = [date2.getFullYear(), mnth2, day2].join("-");
+
+    console.log(zakupyData)
+    console.log(zakupyId)
     const sql = "UPDATE sklep_klient SET  id_sklep = ?,id_klient = ?,data_ostatniego_wizutu_klienta = ?,data_nastepnego_wizytu = ?,straczona_summa = ? WHERE id_sklep_klient = ?;"
     return   db.promise().execute(sql,[zakupyData.id_sklep,zakupyData.id_klient,zakupyData.DataVizytu,zakupyData.DataNastepnego,zakupyData.straczona_summa,zakupyId]);
 };

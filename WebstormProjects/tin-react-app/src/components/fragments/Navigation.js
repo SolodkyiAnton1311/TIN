@@ -14,7 +14,7 @@ class Navigation extends React.Component{
     render() {
         const { t } = this.props;
         const loginLogoutLink = isAuthenticated() ? <button onClick={this.props.handleLogout}>logout</button> : <Link to="/login">Login</Link>
-        const regestrationLink = isAuthenticated() ? <button onClick={this.props.handleLogout}> </button> : <Link to="/registration">{t('nav.registration')}</Link>
+        const regestrationLink = isAuthenticated() ? <button onClick={this.props.handleLogout}> </button>  : <Link to="/registration">{t('nav.registration')}</Link>
         const clientLink = !isAuthenticated() ? <button onClick={this.props.handleLogout}> </button> : <Link to="/klients">{t('nav.employees')}</Link>
         const sklepLink = !isAuthenticated() ? <button onClick={this.props.handleLogout}> </button> : <Link to="/skleps">{t('nav.departments')}</Link>
         const zakupyLink = !isAuthenticated() ? <button onClick={this.props.handleLogout}> </button> : <Link to="/zakups">{t('nav.employments')}</Link>
@@ -22,11 +22,11 @@ class Navigation extends React.Component{
             <nav>
                 <ul>
                     <li><Link to="/">{t('nav.main-page')}</Link></li>
-                    <li className="lang">{clientLink}</li>
-                    <li className="lang">{sklepLink}</li>
-                    <li className="lang">{zakupyLink}</li>
-                    <li className="lang">{regestrationLink}</li>
-                    <li className="lang">{loginLogoutLink}</li>
+                    <li>{clientLink}</li>
+                    <li>{sklepLink}</li>
+                    <li>{zakupyLink}</li>
+                    <li>{regestrationLink}</li>
+                    <li>{loginLogoutLink}</li>
                     <li className="lang"><button onClick={()=> {this.handleLanguageChange('pl')}}>PL</button></li>
                     <li className="lang"><button onClick={()=> {this.handleLanguageChange('en')}}>EN</button></li>
                 </ul>

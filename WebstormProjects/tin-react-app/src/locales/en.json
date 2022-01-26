@@ -15,7 +15,8 @@
 			"title": "Actions",
 			"details": "Details",
 			"edit": "Edit",
-			"delete": "Delete"
+			"delete": "Delete",
+			"password":"Password"
 		},
 		"form": {
 

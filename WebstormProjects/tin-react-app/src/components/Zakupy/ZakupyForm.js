@@ -1,19 +1,23 @@
 import React from "react";
-import {Link, Redirect} from "react-router-dom";
-import formMode from '../../helper/formHelpers'
 import FormInput from "../form/FormInput";
-import FormButtons from "../form/FormButtons";
-import {checkRequired, checkTextLengthRange} from "../../helper/validationCommon";
-import {addZakupyApiCall, getZakupyApiCall, updateZakupyApiCall} from "../../apiCalls/zakupyApiCalls";
 import {withTranslation} from "react-i18next";
+import {getFormattedDate} from "../../helper/dateHelper";
+import {Redirect} from "react-router-dom";
+import {addZakupyApiCall, getZakupyByIdApiCall, updateZakupyApiCall} from "../../apiCalls/zakupyApiCalls";
+import {checkRequired} from "../../helper/validationCommon";
+import FormButtons from "../form/FormButtons";
+import formMode from "../../helper/formHelpers";
 
-class ZakupyForm extends React.Component {
+class Zakupy extends React.Component {
+
     constructor(props) {
         super(props);
-        const zakupyKlientId = props.match.params.zakupyId;
-        const currentFormMode = zakupyKlientId ? formMode.EDIT : formMode.NEW
+        const paramsZakupyId = props.match.params.zakupyId;
+        const currentFormMode = paramsZakupyId ? formMode.EDIT : formMode.NEW;
+
         this.state = {
-            zakupyKlientId:zakupyKlientId,
+            paramsZakupyId: paramsZakupyId,
+
             zakupy: {
                 id: "",
                 DataVizytu: "",
@@ -24,46 +28,48 @@ class ZakupyForm extends React.Component {
                 imie: "",
                 nazwisko: "",
                 adres: "",
-                klients: [],
-                allKlients: [],
-                allSkleps: []
+                allSkleps:[],
+                allKlients:[]
             },
             errors: {
-                id_sklep: '',
-                id_klient: '',
-                DataVizytu: '',
-                DataNastepnego: '',
-                straczona_summa:''
+                id: "",
+                DataVizytu: "",
+                straczona_summa: "",
+                DataNastepnego: "",
+                id_sklep: "",
+                id_klient: "",
+                imie: "",
+                nazwisko: "",
+                adres: "",
 
 
             },
             formMode: currentFormMode,
             redirect: false,
-            error: null,
-
+            error: null
         }
+
     }
+
     fetchZakupyDetails = () => {
 
-        getZakupyApiCall(this.state.zakupy.id)
+        getZakupyByIdApiCall(this.state.paramsZakupyId)
             .then(res => res.json())
             .then(k => {
-
                 return k
             })
             .then(
                 (data) => {
-
-
-
+                    if (data.message != null) {
                         this.setState({
-
-                            zakupy:data,
-
+                            message: data.message
+                        })
+                    } else {
+                        this.setState({
+                            zakupy: data,
                             message: null
                         })
-                    console.log(data)
-
+                    }
                     this.setState({
                         isLoaded: true
                     })
@@ -74,149 +80,40 @@ class ZakupyForm extends React.Component {
                         error
                     })
                 })
+    }
 
-    }
+
     componentDidMount() {
-        const currentFormMode = this.state.formMode
-        if (currentFormMode === formMode.EDIT) {
-            this.fetchZakupyDetails()
-        }
+        this.fetchZakupyDetails()
     }
+
     handleChange = (event) => {
-        const { name, value } = event.target;
-        const zakupy = { ...this.state.zakupy};
-        zakupy[name] = value;
+        const {name, value} = event.target;
+        const zakupy = {...this.state.zakupy};
+        if (name === "id_sklep" || name === "id_klient"){
+            zakupy[name] = parseInt(value);
+        } else {
+            zakupy[name] = value;
+        }
+
 
         const errorMessage = this.validateField(name, value);
-        const errors = { ...this.state.errors };
+        const errors = {...this.state.errors};
         errors[name] = errorMessage;
 
         this.setState({
             zakupy: zakupy,
             errors: errors
         })
-    }
-    validateField = (fieldName,fieldValue)=> {
-        let errorMessage = '';
 
+    }
+
+    validateField = (fieldName, fieldValue) => {
+
+            let errorMessage = "";
         return errorMessage;
-
-    }
-    hasErrors = () => {
-        const errors = this.state.errors;
-        for (const errorField in this.state.errors) {
-            if (errors[errorField].length > 0) {
-                return true;
-            }
-        }
-        return false;
     }
 
-    render() {
-
-        const { redirect } = this.state;
-        if (redirect) {
-            const currentFormMode = this.state.formMode
-            const notice = currentFormMode === formMode.NEW ? 'Dodano nowe zakupy' : 'Zakupy zostali modifikowany '
-            return (
-                <Redirect to={{
-                    pathname: "/zakups",
-                    state: {
-                        notice: notice
-                    }
-                }} />
-            )
-        }
-        const {t} = this.props;
-        const errorsSummary = this.hasErrors() ? 'Formularz zawiera błędy' : ''
-        const fetchError = this.state.error ? `Błąd: ${this.state.error.message}` : ''
-        const pageTitle = this.state.formMode === formMode.NEW ? t('zakupy.fields.list.addNew') : t('zakupy.fields.list.editTitle')
-        const globalErrorMessage = errorsSummary || fetchError || this.state.message
-        return (
-            <main>
-                <h2>{pageTitle}</h2>
-                <form className="form" onSubmit={this.handleSubmit}>
-                    <label htmlFor="id_sklep">poebat<abbr title="required" aria-label="required" className="symbol-required">*</abbr></label>
-                    <select name="id_sklep" id="id_sklep" defaultValue={this.state.zakupy.id_sklep} onChange={this.handleChange} required>
-                        <option value=""></option>
-                        {this.state.zakupy.allSkleps.map(sklep =>
-                            (<option key={sklep.id_sklep} value={sklep.id_sklep} selected={sklep.id_sklep === this.state.zakupy.id_sklep}>{sklep.Adresa}</option>)
-                        )}
-                    </select>
-                    <FormInput
-                        type="text"
-                        label="sklep"
-                        required
-                        error={this.state.errors.id_sklep}
-                        name="id_sklep"
-                        placeholder="2-60 znaków"
-                        onChange={this.handleChange}
-                        defaultValue={this.state.zakupy.id_sklep}
-                    />
-
-                    <FormInput
-                        type="text"
-                        label={t('zakupy.fields.firstName')}
-                        required
-                        error={this.state.errors.id_klient}
-                        name="id_klient"
-                        placeholder="2-60 znaków"
-                        onChange={this.handleChange}
-                        defaultValue={this.state.zakupy.id_klient}
-                    />
-
-                    <FormInput
-                        type="date"
-                        label={t('zakupy.fields.dataLast')}
-                        required
-                        error={this.state.errors.DataVizytu}
-                        name="DataVizytu"
-                        onChange={this.handleChange}
-                        defaultValue={this.state.zakupy.DataVizytu}
-                    />
-
-                    <FormInput
-                        type="date"
-                        label={t('zakupy.fields.dateNext')}
-                        required
-                        error={this.state.errors.DataNastepnego}
-                        name="Plec"
-                        onChange={this.handleChange}
-                        defaultValue={this.state.zakupy.DataNastepnego}
-                    />
-
-                    <FormInput
-                        type="number"
-                        label={t('zakupy.fields.straczonasumma')}
-                        required
-                        error={this.state.errors.straczona_summa}
-                        name="straczona_summa"
-                        onChange={this.handleChange}
-                        defaultValue={this.state.zakupy.straczona_summa}
-                    />
-
-                    <FormButtons
-                        formMode={this.state.formMode}
-                        error={globalErrorMessage}
-                        cancelPath="/zakups"
-                    />
-                </form>
-            </main>
-        )
-    }
-    validateForm = () => {
-        const zakupy = this.state.zakupy;
-        const errors = this.state.errors;
-        for (const fieldName in zakupy) {
-            const fieldValue = zakupy[fieldName];
-            const errorMessage = this.validateField(fieldName, fieldValue);
-            errors[fieldName] = errorMessage;
-        }
-        this.setState({
-            errors: errors
-        })
-        return !this.hasErrors()
-    }
     handleSubmit = (event) => {
         event.preventDefault();
         const isValid = this.validateForm()
@@ -231,8 +128,8 @@ class ZakupyForm extends React.Component {
                 promise = addZakupyApiCall(zakupy)
 
             } else if (currentFormMode === formMode.EDIT) {
+                const zakupyId = this.state.zakupy.id
 
-                const zakupyId = this.props.match.params.zakupyId;
                 promise = updateZakupyApiCall(zakupyId, zakupy)
             }
             if (promise) {
@@ -247,11 +144,12 @@ class ZakupyForm extends React.Component {
                     .then(
                         (data) => {
                             if (!response.ok && response.status === 500) {
+
                                 for (const i in data) {
                                     const errorItem = data[i]
                                     const errorMessage = errorItem.message
                                     const fieldName = errorItem.path
-                                    const errors = { ...this.state.errors }
+                                    const errors = {...this.state.errors}
                                     errors[fieldName] = errorMessage
                                     this.setState({
                                         errors: errors,
@@ -259,28 +157,138 @@ class ZakupyForm extends React.Component {
                                     })
                                 }
                             } else {
-                                this.setState({ redirect: true })
+                                this.setState({redirect: true})
                             }
                         },
                         (error) => {
-                            this.setState({ error })
+                            this.setState({error})
                             console.log(error)
                         }
-                    )}
-        }
-    }
-
-    hasErrors = () =>{
-        const errors = this.state.errors
-        for (const  errorField in this.state.errors)
-        {
-            if(errors[errorField].length > 0)
-            {
-                return true
+                    )
             }
         }
-        return false
     }
+
+    validateForm = () => {
+        const zakupy = this.state.zakupy;
+        const errors = this.state.errors;
+        for (const fieldName in zakupy) {
+            const fieldValue = zakupy[fieldName];
+            const errorMessage = this.validateField(fieldName, fieldValue);
+            errors[fieldName] = errorMessage;
+        }
+        this.setState({
+            errors: errors
+        })
+        return !this.hasErrors()
+    }
+
+    hasErrors = () => {
+        const errors = this.state.errors;
+        for (const errorField in this.state.errors) {
+            if (errors[errorField].length > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    render() {
+        const {t} = this.props;
+        const {redirect} = this.state
+        if (redirect) {
+            const currentFormMode = this.state.formMode
+            const notice = currentFormMode === formMode.NEW ? "t('footballMatch.form.add.notice')" : "t('footballMatch.form.edit.notice')"
+            console.log(this.state.zakupy.allSkleps)
+            return (
+                <Redirect to={{
+                    pathname: "/zakups",
+                    state: {
+                        notice: notice,
+                    }
+                }}/>
+            )
+        }
+
+        const errorsSummary = this.hasErrors() ? t('error.validation.formErrors') : ''
+        const fetchError = this.state.error ? `${t('error.error')} ${this.state.error.message}` : ''
+        const pageTitle = this.state.formMode === formMode.NEW ? "Zakups" : "Zakups"
+
+        const globalErrorMessage = errorsSummary || fetchError || this.state.message
+        return (
+            <main>
+                <h2>{pageTitle}</h2>
+                <form className="form" onSubmit={this.handleSubmit}>
+
+                    <label htmlFor="zakupyId"> Sklep <abbr title="required"
+                                                                                       aria-label="required"
+                                                                                       className="symbol-required">*</abbr></label>
+                    <select name="id_sklep" id="id_sklep" defaultValue={this.state.zakupy.id_sklep}
+                            onChange={this.handleChange} required>
+                        <option value="">Wybiez sklep</option>
+                        {this.state.zakupy.allSkleps.map(sklep =>
+                            (<option key={sklep.id_sklep} value={sklep.id_sklep}
+                                     selected={sklep.id_sklep === this.state.zakupy.id_sklep}>{sklep.Adresa}</option>)
+                        )}
+                    </select>
+                    <span id="errorKlientId" className="errors-text">{this.state.errors.sklepId}</span>
+
+
+                    <label htmlFor="id_klient">Klient <abbr title="required"
+                                                                                   aria-label="required"
+                                                                                   className="symbol-required">*</abbr></label>
+                    <select name="id_klient" id="id_klient" defaultValue={this.state.zakupy.id_klient} onChange={this.handleChange}  required>
+                        <option value="">Wybiez klienta</option>
+                        {this.state.zakupy.allKlients.map(klients =>
+                            (<option key={klients.id_klient} value={klients.id_klient}
+                                     selected={klients.id_klient === this.state.zakupy.id_klient}>{klients.Imie} {klients.Nazwisko}</option>)
+                        )}
+                    </select>
+                    <span id="ErrorSklep" className="errors-text">{this.state.errors.klient}</span>
+                    <FormInput
+                        type="date"
+                        label="Data Vizytu"
+                        required
+                        error={this.state.errors.DataVizytu?getFormattedDate(this.state.zakupy.DataNastepnego) : ""}
+                        name="DataVizytu"
+                        onChange={this.handleChange}
+                        selected = {this.state.zakupy.DataVizytu}
+                        value={this.state.zakupy.DataVizytu?getFormattedDate(this.state.zakupy.DataVizytu) : ""}
+                    />
+
+                    <FormInput
+                        type="date"
+                        label="DataNastepnego"
+                        required
+                        error={this.state.errors.DataNastepnego?getFormattedDate(this.state.zakupy.DataNastepnego) : ""}
+                        name="DataNastepnego"
+                        onChange={this.handleChange}
+                        selected = {this.state.zakupy.DataNastepnego}
+                        value={this.state.zakupy.DataNastepnego?getFormattedDate(this.state.zakupy.DataNastepnego) : ""}
+                    />
+
+                    <FormInput
+                        type="number"
+                        label="straczona_summa"
+                        required
+                        error={this.state.errors.straczona_summa}
+                        name="straczona_summa"
+                        onChange={this.handleChange}
+                        value={this.state.zakupy.straczona_summa}
+                    />
+                    <FormButtons
+                        formMode={this.state.formMode}
+                        error={globalErrorMessage}
+                        cancelPath="/zakups"
+                    />
+                </form>
+            </main>
+        )
+
+
+    }
+
+
 }
 
-export default withTranslation() (ZakupyForm)
+export default withTranslation()(Zakupy)

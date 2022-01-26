@@ -54,6 +54,13 @@ class UserForm extends React.Component {
                 errorMessage = 'pole powinno zawierac od 2 do 20 znakow'
             }
         }
+        if (fieldName === 'password')
+        {
+
+            if (!checkRequired(fieldValue)) {
+                errorMessage = "Pole jest wymagane"
+            }
+        }
         return errorMessage;
 
     }
@@ -105,7 +112,7 @@ class UserForm extends React.Component {
 
                     <FormInput
                         type="text"
-                        label="password"
+                        label={t('list.actions.password')}
                         required
                         error={this.state.errors.email}
                         name="password"

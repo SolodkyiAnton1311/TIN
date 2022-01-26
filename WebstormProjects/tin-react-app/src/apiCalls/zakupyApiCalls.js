@@ -41,3 +41,15 @@ export  function updateZakupyApiCall(zakupyId,zakupy)
     const promise = fetch(url,options);
     return promise
 }
+export  function deleteZakupyApiCall(zakupyId)
+{
+    const url = zakupyBaseUrl+'/'+zakupyId;
+    const options = {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        },
+    };
+    const promise = fetch(url,options);
+    return promise
+}
