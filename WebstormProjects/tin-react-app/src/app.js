@@ -8,6 +8,14 @@ import {
 import Header from "./components/fragments/Header";
 import Navigation from "./components/fragments/Navigation";
 import KlientList from "./components/Klient/KlientList"
+import PracownikList from "./components/Pracownik/PracownikList"
+import PracaList from "./components/Praca/PracaList"
+import PracaFrom from "./components/Praca/PracaForm"
+import PracaDelete from "./components/Praca/PracaDelete"
+import PracaDetails from "./components/Praca/PracaDetails"
+import PracownikDetails from "./components/Pracownik/PracownikDetails"
+import PracownikiForm from "./components/Pracownik/PracownikiForm"
+import PracownikiDelete from "./components/Pracownik/PracownikDelete"
 import SklepList from "./components/Sklep/SklepList"
 import ZakupyList from "./components/Zakupy/ZakupyList"
 import ZakupyForm from "./components/Zakupy/ZakupyForm"
@@ -58,15 +66,25 @@ class App extends React.Component{
                         <Route exact path="/skleps" component={SklepList}/>
                         <Route exact path="/zakups" component={ZakupyList}/>
                         <Route exact path="/klients" component={KlientList}/>
+                        <Route exact path="/praca" component={PracaList}/>
+                        <Route exact path="/praca/details/:pracaId" component={PracaDetails}/>
+                        <Route exact path="/pracowniki" component={PracownikList}/>
                         <Route exact path="/zakups/add" component={ZakupyForm}/>
+                        <Route exact path="/praca/add" component={PracaFrom}/>
+                        <Route exact path="/praca/edit/:pracaId" component={PracaFrom}/>
+                        <Route exact path="/praca/delete/:pracaId" component={PracaDelete}/>
                         <Route exact path="/zakups/edit/:zakupyId" component={ZakupyForm}/>
                         <Route exact path="/skleps/edit/:sklepId" component={SklepForm}/>
                         <Route exact path="/skleps/delete/:sklepId" component={SklepDelete}/>
                         <Route exact path="/zakups/delete/:zakupyId" component={ZakupyDelete}/>
                         <Route exact path="/skleps/add" component={SklepForm}/>
                         <Route exact path="/klients/add" component={KlientForm}/>
+                        <Route exact path="/pracowniki/add" component={PracownikiForm}/>
                         <Route exact path="/klients/edit/:klientId" component={KlientForm}/>
+                        <Route exact path="/pracowniki/edit/:pracownikId" component={PracownikiForm}/>
+                        <Route exact path="/pracowniki/delete/:pracownikId" component={PracownikiDelete}/>
                         <Route exact path="/klients/details/:klientId" component={KlientDetails}/>
+                        <Route exact path="/pracowniki/details/:pracownikId" component={PracownikDetails}/>
                         <Route exact path="/klients/delete/:klientId" component={KlientDelete}/>
                         <Route exact path="/zakups/details/:zakupyId" component={ZakupyDetails}/>
                         <Route exact path="/skleps/details/:sklepId" component={SklepDetails}/>

@@ -4,7 +4,6 @@ import {withTranslation} from "react-i18next";
 import {getFormattedDate} from "../../helper/dateHelper";
 import {Redirect} from "react-router-dom";
 import {addZakupyApiCall, getZakupyByIdApiCall, updateZakupyApiCall} from "../../apiCalls/zakupyApiCalls";
-import {checkRequired} from "../../helper/validationCommon";
 import FormButtons from "../form/FormButtons";
 import formMode from "../../helper/formHelpers";
 
@@ -198,7 +197,7 @@ class Zakupy extends React.Component {
         const {redirect} = this.state
         if (redirect) {
             const currentFormMode = this.state.formMode
-            const notice = currentFormMode === formMode.NEW ? "t('footballMatch.form.add.notice')" : "t('footballMatch.form.edit.notice')"
+            const notice = currentFormMode === formMode.NEW ? "" : ""
             console.log(this.state.zakupy.allSkleps)
             return (
                 <Redirect to={{
@@ -212,7 +211,7 @@ class Zakupy extends React.Component {
 
         const errorsSummary = this.hasErrors() ? t('error.validation.formErrors') : ''
         const fetchError = this.state.error ? `${t('error.error')} ${this.state.error.message}` : ''
-        const pageTitle = this.state.formMode === formMode.NEW ? "Zakups" : "Zakups"
+        const pageTitle = this.state.formMode === formMode.NEW ? t('zakupy.fields.list.addNew') : t('zakupy.fields.list.editTitle')
 
         const globalErrorMessage = errorsSummary || fetchError || this.state.message
         return (
@@ -220,7 +219,7 @@ class Zakupy extends React.Component {
                 <h2>{pageTitle}</h2>
                 <form className="form" onSubmit={this.handleSubmit}>
 
-                    <label htmlFor="zakupyId"> Sklep <abbr title="required"
+                    <label htmlFor="zakupyId"> {t('zakupy.fields.market')} <abbr title="required"
                                                                                        aria-label="required"
                                                                                        className="symbol-required">*</abbr></label>
                     <select name="id_sklep" id="id_sklep" defaultValue={this.state.zakupy.id_sklep}
@@ -234,7 +233,7 @@ class Zakupy extends React.Component {
                     <span id="errorKlientId" className="errors-text">{this.state.errors.sklepId}</span>
 
 
-                    <label htmlFor="id_klient">Klient <abbr title="required"
+                    <label htmlFor="id_klient"> {t('zakupy.fields.client')}  <abbr title="required"
                                                                                    aria-label="required"
                                                                                    className="symbol-required">*</abbr></label>
                     <select name="id_klient" id="id_klient" defaultValue={this.state.zakupy.id_klient} onChange={this.handleChange}  required>
@@ -247,7 +246,7 @@ class Zakupy extends React.Component {
                     <span id="ErrorSklep" className="errors-text">{this.state.errors.klient}</span>
                     <FormInput
                         type="date"
-                        label="Data Vizytu"
+                        label= {t('zakupy.fields.dataLast')}
                         required
                         error={this.state.errors.DataVizytu?getFormattedDate(this.state.zakupy.DataNastepnego) : ""}
                         name="DataVizytu"
@@ -258,7 +257,7 @@ class Zakupy extends React.Component {
 
                     <FormInput
                         type="date"
-                        label="DataNastepnego"
+                        label= {t('zakupy.fields.dateNext')}
                         required
                         error={this.state.errors.DataNastepnego?getFormattedDate(this.state.zakupy.DataNastepnego) : ""}
                         name="DataNastepnego"
@@ -269,7 +268,7 @@ class Zakupy extends React.Component {
 
                     <FormInput
                         type="number"
-                        label="straczona_summa"
+                        label={t('zakupy.fields.straczonasumma')}
                         required
                         error={this.state.errors.straczona_summa}
                         name="straczona_summa"

@@ -5,6 +5,7 @@ function KlientDetailData(props)
 {
     const {t} = props;
     const klients = props.klientData
+    console.log(klients)
     return(
         <React.Fragment>
             <p>{t('klient.fields.firstName')}:{klients.Imie}</p>

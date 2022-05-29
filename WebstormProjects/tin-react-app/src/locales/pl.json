@@ -8,7 +8,9 @@
     "employees": "Klienci",
     "departments": "Sklepy",
     "employments": "Zakupy",
-    "registration": "Reestracja"
+    "registration": "Reestracja",
+    "praca": "Praca",
+    "pracowniki": "Pracowniki"
   },
   "list": {
     "actions": {
@@ -82,9 +84,39 @@
       "list": {
         "title": "Zakupy",
         "addNew": "Dodaj nowe zakupy",
-        "pageTitle": "Lista klientów",
+        "pageTitle": "Lista zakupów",
         "editTitle": "Edytuj zakupy",
         "detailsTitle": "Szególy zakupów"
+      }
+    }
+  },
+  "pracownik": {
+    "fields": {
+      "firstName": "Imie",
+      "lastName": "Nazwisko",
+      "salaryPerHours": "Stawkę za godzinę",
+      "list": {
+        "title": "Pracowniki",
+        "addNew": "Dodać nowego pracownika",
+        "pageTitle": "Lista pracowników",
+        "editTitle": "Edytować pracownika",
+        "detailsTitle": "Szczególy pracownika"
+      }
+    }
+  },
+  "praca": {
+    "fields": {
+      "firstName": "Imie",
+      "lastName": "Nazwisko",
+      "adres": "Ulica",
+      "dataZatrudnienia":"Data zatrudnienia",
+      "employeer":"Pracownik",
+      "list": {
+        "title": "Praca",
+        "addNew": "Dodać nową prace",
+        "pageTitle": "Lista prac",
+        "editTitle": "Edytować prace",
+        "detailsTitle": "Szczególy pracownika"
       }
     }
   }

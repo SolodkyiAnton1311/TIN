@@ -128,7 +128,7 @@ class LoginForm extends React.Component {
                             name="email"
                             value={this.state.user.email}
                             error={this.state.errors.email}
-                            label="login"
+                            label="Login"
                             onChange={this.handleChange}
                             type="text"
                         />
@@ -136,7 +136,7 @@ class LoginForm extends React.Component {
                             name="password"
                             value={this.state.user.password}
                             error={this.state.errors.password}
-                            label="password"
+                            label={t('list.actions.password')}
                             onChange={this.handleChange}
                             type="text"
                         />

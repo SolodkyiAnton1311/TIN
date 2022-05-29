@@ -8,7 +8,9 @@
 		"employees": "Clients",
 		"departments": "Market",
 		"employments": "Shopping",
-		"registration": "Registration"
+		"registration": "Registration",
+		"praca": "Employment",
+		"pracowniki": "Employees"
 	},
 	"list": {
 		"actions": {
@@ -92,6 +94,37 @@
 				"pageTitle": "List of Shopping",
 				"editTitle": "Edit Shopping",
 				"detailsTitle": "Details Shopping"
+			}
+		}
+	},
+	"pracownik": {
+		"fields": {
+			"firstName": "Firstname",
+			"lastName": "Lastname",
+			"salaryPerHours": "Salary per hours",
+			"list": {
+				"title": "Employers",
+				"addNew": "Add new Employers",
+				"pageTitle": "List of Employers",
+				"editTitle": "Edit Employers",
+				"detailsTitle": "Details Employers"
+			}
+		}
+	},
+	"praca": {
+		"fields": {
+			"firstName": "Firstname",
+			"lastName": "Lastname",
+			"adres": "Street",
+			"dataZatrudnienia":"Date of employment",
+
+			"employeer":"Employeer",
+			"list": {
+				"title": "Employment",
+				"addNew": "Add new Employment",
+				"pageTitle": "List of Employment",
+				"editTitle": "Edit Employment",
+				"detailsTitle": "Details Employment"
 			}
 		}
 	}
